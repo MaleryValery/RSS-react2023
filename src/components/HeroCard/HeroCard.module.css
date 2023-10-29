@@ -1,5 +1,5 @@
 .movieCard {
-  max-width: 300px;
+  max-width: 200px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -13,9 +13,9 @@
   transform: scale(101%);
 }
 
-.moviePoster img {
+.heroImage img {
   border-radius: 10px;
-  width: 290px;
+  width: 190px;
 }
 
 .movieContent {
