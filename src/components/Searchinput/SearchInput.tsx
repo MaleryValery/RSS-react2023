@@ -39,6 +39,7 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
     const { onInputChange } = this.props;
     const { searchValue } = this.state;
     await onInputChange(searchValue || '');
+    localStorage.setItem('searchValue', searchValue || '');
   }
 
   render() {
