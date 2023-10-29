@@ -1,0 +1,28 @@
+.movieCard {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.movieCard:hover {
+  transform: scale(101%);
+}
+
+.moviePoster img {
+  border-radius: 10px;
+  width: 290px;
+}
+
+.movieContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+}
