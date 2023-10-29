@@ -43,7 +43,7 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
 
   render() {
     return (
-      <>
+      <div className={classes.searchWrapper}>
         <input
           type="text"
           className={classes.inputSearch}
@@ -60,7 +60,7 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
         >
           search
         </button>
-      </>
+      </div>
     );
   }
 }
