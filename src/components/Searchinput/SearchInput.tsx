@@ -1,10 +1,9 @@
 import { ChangeEvent, Component, MouseEvent } from 'react';
-import {
-  SearchInputBarProps,
-  SearchInputBarState,
-} from '../../interfaces/InputBar';
+
 import classes from './Searchinput.module.css';
 import ApiService from '../../service/apiService';
+import SearchInputBarState from '../../interfaces/SearchInputBarState';
+import SearchInputBarProps from '../../interfaces/SearchInputBarProps';
 
 class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
   constructor(props: SearchInputBarProps) {
