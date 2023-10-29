@@ -1,24 +1,27 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Component } from 'react';
+import Header from './pages/Header';
+import ListMovies from './interfaces/ListMovies';
+import MovieSection from './components/MovieSection';
 
-import NotFound from './pages/NotFound';
-import Home from './pages/home';
+class App extends Component<object, ListMovies> {
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      text: 'searchtext',
+      movies: [],
+    };
+  }
 
-function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
-  );
+  render() {
+    const { movies, text } = this.state;
+    return (
+      <>
+        <Header />
+
+        <MovieSection text={text} movies={movies} />
+      </>
+    );
+  }
 }
 
-export function WrapperApp() {
-  return (
-    <HashRouter>
-      <App />
-    </HashRouter>
-  );
-}
 export default App;
