@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Header from './pages/Header';
+import Header from './components/Header/Header';
 import MainSection from './components/MainSection/MainSection';
 import HeroListProps from './interfaces/HeroListProps';
 
