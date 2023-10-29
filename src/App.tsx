@@ -1,24 +1,14 @@
 import { Component } from 'react';
 import Header from './pages/Header';
-import ListMovies from './interfaces/ListMovies';
-import MovieSection from './components/MovieSection';
+import MainSection from './components/MainSection/MainSection';
+import HeroListProps from './interfaces/HeroListProps';
 
-class App extends Component<object, ListMovies> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      text: 'searchtext',
-      movies: [],
-    };
-  }
-
+class App extends Component<object, HeroListProps> {
   render() {
-    const { movies, text } = this.state;
     return (
       <>
         <Header />
-
-        <MovieSection text={text} movies={movies} />
+        <MainSection />
       </>
     );
   }
