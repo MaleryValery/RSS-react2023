@@ -1,13 +1,26 @@
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+import ApiResponseType from '../types/ApiResponseType';
+import MovieObject from '../interfaces/Hero';
+
 class ApiService {
-  private static key = '4737fbe6';
+  private static baseUrl = `https://rickandmortyapi.com/api/`;
 
-  private static baseUrl = `https://www.omdbapi.com/?apikey=${this.key}&s=`;
+  private static endpoint = `character`;
 
-  public static getMovies = async (value: string) => {
-    const resp = await fetch(`${this.baseUrl}${value}`);
-    const dataRes = await resp.json();
-
-    return dataRes.Search;
+  public static getMovies = async (
+    value: string | null
+  ): Promise<MovieObject[] | null> => {
+    const request = value ? `?name=${value}` : '';
+    const resp = await fetch(`${this.baseUrl}/${this.endpoint}/${request}`);
+    if (!resp.ok) {
+      Toastify({
+        text: 'Rick messed up, try again',
+        duration: 2000,
+      }).showToast();
+    }
+    const dataRes: ApiResponseType = await resp.json();
+    return dataRes.results;
   };
 }
 
