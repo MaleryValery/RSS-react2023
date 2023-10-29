@@ -4,6 +4,7 @@ import {
   SearchInputBarState,
 } from '../../interfaces/InputBar';
 import classes from './Searchinput.module.css';
+import ApiService from '../../service/apiService';
 
 class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
   constructor(props: SearchInputBarProps) {
@@ -15,9 +16,19 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  public componentDidMount(): void {
+    const search = localStorage.getItem('searchValue')
+      ? localStorage.getItem('searchValue')
+      : '';
+    this.setState({
+      searchValue: search,
+    });
+    ApiService.getMovies(search);
+  }
+
   public componentWillUnmount(): void {
     const { searchValue } = this.state;
-    localStorage.setItem('searchValue', searchValue);
+    localStorage.setItem('searchValue', searchValue || '');
   }
 
   private handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -26,7 +37,9 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
 
   private async onSubmit(event: MouseEvent): Promise<void> {
     event.preventDefault();
-    await this.props.onChange(this.state.searchValue);
+    const { onInputChange } = this.props;
+    const { searchValue } = this.state;
+    await onInputChange(searchValue || '');
   }
 
   render() {
@@ -35,12 +48,16 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
         <input
           type="text"
           className={classes.inputSearch}
-          onChange={this.handleChange.bind(this)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            this.handleChange(event)
+          }
         />
         <button
           type="button"
           className={classes.btnSearch}
-          onClick={this.onSubmit.bind(this)}
+          onClick={async (event: MouseEvent<HTMLElement>): Promise<void> => {
+            this.onSubmit(event);
+          }}
         >
           search
         </button>
