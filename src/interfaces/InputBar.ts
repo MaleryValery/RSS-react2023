@@ -1,6 +1,7 @@
-interface SearchInputBar {
-  text: string;
-  onChange: (text: string) => void;
+export interface SearchInputBarProps {
+  onChange: (text?: string) => Promise<void>;
 }
 
-export default SearchInputBar;
+export interface SearchInputBarState {
+  searchValue: string;
+}
