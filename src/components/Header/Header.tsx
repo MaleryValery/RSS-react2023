@@ -8,9 +8,7 @@ class Header extends Component<ErrorProps, ErrorState> {
     return (
       <header className={classes.header}>
         <h1>Ricky App</h1>
-        <button type="button" onClick={() => new Error()}>
-          Get Error
-        </button>
+        <button type="button">Get Error</button>
       </header>
     );
   }
