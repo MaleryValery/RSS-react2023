@@ -21,7 +21,6 @@ class MainSection extends Component<object, MainState> {
   public async updateHeroesSection(value?: string): Promise<void> {
     this.setState(() => ({
       isLoading: true,
-      error: '',
     }));
     try {
       const heroesData = value
@@ -31,13 +30,12 @@ class MainSection extends Component<object, MainState> {
       this.setState({
         heroes: heroesData,
         isLoading: false,
-        error: '',
       });
-    } catch (e) {
+    } catch (error) {
       this.setState({
         heroes: [],
         isLoading: false,
-        error: e instanceof Error ? e.message : 'something went wrong',
+        error: (error as Error).message,
       });
     }
   }
@@ -48,7 +46,7 @@ class MainSection extends Component<object, MainState> {
       <div className={classes.mainWrapper}>
         <SearchInput onInputChange={this.updateHeroesSection} />
         {isLoading && <Loader />}
-        {error && <div className={classes.errorMessage}>{error}</div>}
+        {error && <h1>{error}</h1>}
         {heroes && heroes.length && !isLoading && !error && (
           <HeroesList heroes={heroes} />
         )}
