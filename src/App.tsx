@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import Header from './components/Header/Header';
 import MainSection from './components/MainSection/MainSection';
-import HeroListProps from './interfaces/HeroListProps';
+import ErrorBtn from './components/ErrorBtn/ErrorBtn';
 
-class App extends Component<object, HeroListProps> {
+class App extends Component<object> {
   render() {
     return (
       <>
+        <ErrorBtn />
         <Header />
         <MainSection />
       </>
