@@ -1,7 +1,6 @@
 import { ChangeEvent, Component, MouseEvent } from 'react';
 
 import classes from './Searchinput.module.css';
-import ApiService from '../../service/apiService';
 import SearchInputBarState from '../../interfaces/SearchInputBarState';
 import SearchInputBarProps from '../../interfaces/SearchInputBarProps';
 
@@ -15,14 +14,20 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  public componentDidMount(): void {
-    const search = localStorage.getItem('searchValue')
-      ? localStorage.getItem('searchValue')
-      : '';
-    this.setState({
-      searchValue: search,
-    });
-    ApiService.getMovies(search);
+  public async componentDidMount() {
+    const { onInputChange } = this.props;
+    const search = localStorage.getItem('searchValue');
+    if (search) {
+      this.setState({
+        searchValue: search,
+      });
+      onInputChange(search);
+    } else {
+      this.setState({
+        searchValue: '',
+      });
+      onInputChange();
+    }
   }
 
   public componentWillUnmount(): void {
@@ -43,10 +48,12 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
   }
 
   render() {
+    const { searchValue } = this.state;
     return (
       <div className={classes.searchWrapper}>
         <input
           type="text"
+          value={searchValue || ''}
           className={classes.inputSearch}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             this.handleChange(event)

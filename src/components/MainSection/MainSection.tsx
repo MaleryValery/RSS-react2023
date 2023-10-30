@@ -18,10 +18,6 @@ class MainSection extends Component<object, MainState> {
     this.updateHeroesSection = this.updateHeroesSection.bind(this);
   }
 
-  public async componentDidMount(): Promise<void> {
-    await this.updateHeroesSection();
-  }
-
   public async updateHeroesSection(value?: string): Promise<void> {
     this.setState(() => ({
       isLoading: true,
