@@ -1,0 +1,28 @@
+.movieCard {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.movieCard:hover {
+  transform: scale(101%);
+}
+
+.heroImage img {
+  border-radius: 10px;
+  width: 190px;
+}
+
+.movieContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+}
