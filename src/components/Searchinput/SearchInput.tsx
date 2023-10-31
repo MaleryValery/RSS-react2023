@@ -3,6 +3,7 @@ import { ChangeEvent, Component, MouseEvent } from 'react';
 import classes from './Searchinput.module.css';
 import SearchInputBarState from '../../interfaces/SearchInputBarState';
 import SearchInputBarProps from '../../interfaces/SearchInputBarProps';
+import CustomButton from '../UI/CustomBotton/CustomButton';
 
 class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
   constructor(props: SearchInputBarProps) {
@@ -59,15 +60,14 @@ class SearchInput extends Component<SearchInputBarProps, SearchInputBarState> {
             this.handleChange(event)
           }
         />
-        <button
-          type="button"
-          className={classes.btnSearch}
-          onClick={async (event: MouseEvent<HTMLElement>): Promise<void> => {
-            this.onSubmit(event);
+        <CustomButton
+          disabled={false}
+          onClick={async (event?: MouseEvent<HTMLElement>): Promise<void> => {
+            if (event) this.onSubmit(event);
           }}
         >
-          search
-        </button>
+          Search
+        </CustomButton>
       </div>
     );
   }
