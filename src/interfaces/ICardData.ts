@@ -1,4 +1,4 @@
-interface HeroObject {
+interface ICardData {
   id: number;
   name: string;
   status: string;
@@ -19,4 +19,4 @@ interface HeroObject {
   created: string;
 }
 
-export default HeroObject;
+export default ICardData;

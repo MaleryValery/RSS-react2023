@@ -7,22 +7,21 @@
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s;
+  padding-bottom: 10px;
 }
 
 .movieCard:hover {
   transform: scale(101%);
+  box-shadow: 0px 5px 5px rgba(115, 255, 0, 0.3);
 }
 
-.heroImage img {
-  border-radius: 10px;
-  width: 190px;
+.cardImg {
+  width: 200px;
 }
 
 .movieContent {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 10px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
+  font-family: 'Neucha';
 }
