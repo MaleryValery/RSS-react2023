@@ -1,0 +1,44 @@
+.errorBoundaryWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  padding: 50px;
+}
+
+.errorBoundaryImg {
+  background-image: url('../../assets/images/error.png');
+  width: 200px;
+  height: 162px;
+  display: block;
+  background-size: cover;
+}
+
+.errorHeading {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(rgb(217, 70, 239), #28b485);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  transform: skewY(1deg) skewX(10deg);
+  background-clip: border-box;
+}
+
+.errorSubHeading {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(#28b485, rgb(115, 255, 0));
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  transform: skewY(1deg) skewX(10deg);
+  background-clip: border-box;
+}
