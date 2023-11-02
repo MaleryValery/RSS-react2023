@@ -1,9 +1,14 @@
 import ICustomButtonProps from './ICustomButtonProps';
 
 function CustomButton(props: ICustomButtonProps) {
-  const { disabled, children, onClick } = props;
+  const { disabled, children, onClick, className } = props;
   return (
-    <button disabled={disabled} type="button" onClick={onClick}>
+    <button
+      disabled={disabled}
+      type="button"
+      onClick={onClick}
+      className={className}
+    >
       {children}
     </button>
   );
