@@ -1,40 +1,26 @@
-import { Component } from 'react';
-import Header from './components/Header/Header';
-import MainSection from './components/MainSection/MainSection';
-import CustomButton from './components/UI/CustomBotton/CustomButton';
-import ErrorState from './interfaces/ErrorState';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+import PageNotFound from './pages/PageNotFound';
+import Home from './pages/Home';
+import About from './pages/About';
+import RootLayout from './layouts/RootLayout';
 
-class App extends Component<object, ErrorState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      isError: false,
-    };
-    this.handleError = this.handleError.bind(this);
-  }
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="*" element={<PageNotFound />} />
+    </Route>
+  )
+);
 
-  componentDidUpdate() {
-    const { isError } = this.state;
-    if (isError) {
-      throw new Error('you get error 💥');
-    }
-  }
-
-  private handleError() {
-    this.setState({ isError: true });
-  }
-
-  render() {
-    return (
-      <>
-        <CustomButton disabled={false} onClick={this.handleError}>
-          get error
-        </CustomButton>
-        <Header />
-        <MainSection />
-      </>
-    );
-  }
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
