@@ -1,58 +1,73 @@
-import { Component } from 'react';
-import MainState from '../../interfaces/MainState';
+import { useCallback, useEffect, useState } from 'react';
+import ICardData from '../../utils/interfaces/ICardData';
+import LocalStorageService from '../../utils/LocalStorageService';
+import SearchForm from '../SearchForm/SearchForm';
+import CardsList from '../CardsList/CardsList';
+import Loader from '../UI/Loader/Loader';
 import ApiService from '../../service/apiService';
-import SearchInput from '../Searchinput/SearchInput';
-import classes from './MainSection.module.css';
-import Loader from '../Loader/Loader';
-import HeroesList from '../HerosList/HeroesList';
 
-class MainSection extends Component<object, MainState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      heroes: [],
-      isLoading: false,
-      error: '',
-    };
+function MainSection() {
+  const [cardsList, setCardsList] = useState<ICardData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [totalCards, setTotalCards] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-    this.updateHeroesSection = this.updateHeroesSection.bind(this);
-  }
+  const updateCardsSection = useCallback(
+    async (value?: string): Promise<void> => {
+      try {
+        setIsLoading(true);
+        setCardsList([]);
+        const responseData = await ApiService.getCharacters(value, currentPage);
+        if (responseData.results.length) {
+          setCardsList(responseData.results);
+          setTotalPages(responseData.info.pages);
+          console.log(totalPages);
+          setError('');
+          setTotalCards(responseData.info.count);
+        }
+      } catch (err) {
+        setTotalCards(0);
+        setCardsList([]);
+        setError((err as Error).message ?? 'cannot get list of cards');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [currentPage]
+  );
 
-  public async updateHeroesSection(value?: string): Promise<void> {
-    this.setState(() => ({
-      isLoading: true,
-    }));
-    try {
-      const heroesData = value
-        ? await ApiService.getMovies(value)
-        : await ApiService.getMovies('');
+  useEffect(() => {
+    const inputValue = LocalStorageService.getData('searchValue') || '';
+    updateCardsSection(inputValue);
+  }, [updateCardsSection]);
 
-      this.setState({
-        heroes: heroesData,
-        isLoading: false,
-      });
-    } catch (error) {
-      this.setState({
-        heroes: [],
-        isLoading: false,
-        error: (error as Error).message,
-      });
-    }
-  }
+  let dataToShow: JSX.Element;
+  if (cardsList.length && !error) {
+    dataToShow = <CardsList list={cardsList} />;
+  } else if (!cardsList.length && !isLoading) {
+    dataToShow = <div>Oooops.. {error}</div>;
+  } else dataToShow = <Loader />;
 
-  render() {
-    const { isLoading, error, heroes } = this.state;
-    return (
-      <div className={classes.mainWrapper}>
-        <SearchInput onInputChange={this.updateHeroesSection} />
-        {isLoading && <Loader />}
-        {error && <h1>{error}</h1>}
-        {heroes && heroes.length && !isLoading && !error && (
-          <HeroesList heroes={heroes} />
-        )}
+  return (
+    <div>
+      <h3>{`we have ${totalCards || 0} ${
+        LocalStorageService.getData('searchValue') || 'Charactores'
+      }`}</h3>
+      <div className="main-wrapper">
+        <SearchForm
+          updateCardsSection={updateCardsSection}
+          page={setCurrentPage}
+        />
+        <div>
+          <div>
+            <div>{dataToShow}</div>
+          </div>
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default MainSection;
