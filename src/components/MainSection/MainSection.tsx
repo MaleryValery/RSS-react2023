@@ -5,27 +5,30 @@ import SearchForm from '../SearchForm/SearchForm';
 import CardsList from '../CardsList/CardsList';
 import Loader from '../UI/Loader/Loader';
 import ApiService from '../../service/apiService';
+import Pagination from '../Pagination/Pagination';
 
 function MainSection() {
   const [cardsList, setCardsList] = useState<ICardData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [totalCards, setTotalCards] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isNextPage, setIsNexPage] = useState(false);
 
   const updateCardsSection = useCallback(
     async (value?: string): Promise<void> => {
       try {
         setIsLoading(true);
         setCardsList([]);
+        setIsNexPage(false);
         const responseData = await ApiService.getCharacters(value, currentPage);
         if (responseData.results.length) {
           setCardsList(responseData.results);
           setTotalPages(responseData.info.pages);
-          console.log(totalPages);
           setError('');
           setTotalCards(responseData.info.count);
+          setIsNexPage(responseData.info.next !== null);
         }
       } catch (err) {
         setTotalCards(0);
@@ -63,6 +66,14 @@ function MainSection() {
         <div>
           <div>
             <div>{dataToShow}</div>
+            {cardsList && (
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+                isNextPage={isNextPage}
+              />
+            )}
           </div>
         </div>
       </div>
