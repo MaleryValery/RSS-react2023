@@ -1,26 +1,28 @@
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
-import ApiResponseType from '../types/ApiResponseType';
-import MovieObject from '../interfaces/Hero';
+import axios from 'axios';
+import IResponseData from './IResponseData';
+import ICardData from '../utils/interfaces/ICardData';
 
 class ApiService {
   private static baseUrl = `https://rickandmortyapi.com/api/`;
 
   private static endpoint = `character`;
 
-  public static getMovies = async (
-    value: string | null
-  ): Promise<MovieObject[] | null> => {
-    const request = value ? `?name=${value}` : '';
-    const resp = await fetch(`${this.baseUrl}/${this.endpoint}/${request}`);
-    if (!resp.ok) {
-      Toastify({
-        text: 'Rick messed up, try again',
-        duration: 2000,
-      }).showToast();
-    }
-    const dataRes: ApiResponseType = await resp.json();
-    return dataRes.results;
+  public static getCharacters = async (
+    value?: string | null,
+    page: number = 1
+  ): Promise<IResponseData> => {
+    const response = await axios.get(`${this.baseUrl}/${this.endpoint}/`, {
+      params: {
+        _page: page,
+        name: value || '',
+      },
+    });
+    return response.data;
+  };
+
+  public static getCharactersById = async (id: number): Promise<ICardData> => {
+    const response = await axios.get(`${this.baseUrl}/${this.endpoint}/${id}`);
+    return response.data;
   };
 }
 
