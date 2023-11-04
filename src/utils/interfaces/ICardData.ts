@@ -1,3 +1,5 @@
+import TypeLocation from '../types/TypeLocation';
+
 interface ICardData {
   id: number;
   name: string;
@@ -5,14 +7,8 @@ interface ICardData {
   species: string;
   type: string;
   gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
+  origin: TypeLocation;
+  location: TypeLocation;
   image: string;
   episode: string[];
   url: string;
