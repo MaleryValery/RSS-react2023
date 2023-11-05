@@ -7,19 +7,24 @@ function Home() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const onClose = () => {
+    if (location.pathname.includes('details')) navigate('/');
+  };
+
   return (
     <>
       <Header />
       <div className={classes.homeMainWrapper}>
-        <button
-          type="button"
+        <div
+          tabIndex={0}
+          aria-label="overlay"
+          onKeyDown={onClose}
+          role="button"
           className={classes.homeContentWrapper}
-          onClick={() => {
-            if (location.pathname.includes('details')) navigate('/');
-          }}
+          onClick={onClose}
         >
           <MainSection />
-        </button>
+        </div>
         <div>
           <Outlet />
         </div>
