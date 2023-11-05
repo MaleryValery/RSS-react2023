@@ -1,11 +1,14 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import CustomButton from '../UI/CustomBotton/CustomButton';
 import IPaginatinProps from './IPaginationProps';
 import classes from './Pagination.module.css';
+import CustomSelect from '../UI/CustomSelect/CustomSelect';
+import SELECT_OPTIONS from '../../utils/const/const';
 
 function Pagination(props: IPaginatinProps) {
   const { currentPage, setCurrentPage, isNextPage } = props;
   const [search, setSearch] = useSearchParams();
+  const navigation = useNavigate();
 
   const setPage = (page: number) => {
     search.set('page', page.toString());
@@ -36,6 +39,15 @@ function Pagination(props: IPaginatinProps) {
         className={classes.arrowRigth}
         onClick={onNextButton}
         disabled={!isNextPage}
+      />
+      <CustomSelect
+        items={SELECT_OPTIONS}
+        defaultValue={SELECT_OPTIONS[0]}
+        classNameSelect={classes.searshSelect}
+        classNameOpt={classes.searshOption}
+        onChange={() => {
+          navigation('/');
+        }}
       />
     </div>
   );

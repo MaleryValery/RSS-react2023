@@ -5,8 +5,6 @@ import CustomButton from '../UI/CustomBotton/CustomButton';
 import LocalStorageService from '../../utils/LocalStorageService';
 import ISearchFormProps from './ISearchFormProps';
 import classes from './SearchForm.module.css';
-import CustomSelect from '../UI/CustomSelect/CustomSelect';
-import SELECT_OPTIONS from '../../utils/const/const';
 
 function SearchForm(props: ISearchFormProps) {
   const [inputValue, setInputValue] = useState(
@@ -49,12 +47,6 @@ function SearchForm(props: ISearchFormProps) {
         value={inputValue}
         onKeyDown={handleInputSubmit}
         className={classes.customInput}
-      />
-      <CustomSelect
-        items={SELECT_OPTIONS}
-        defaultValue={SELECT_OPTIONS[0]}
-        classNameSelect={classes.searshSelect}
-        classNameOpt={classes.searshOption}
       />
       <CustomButton
         className={classes.customButton}
