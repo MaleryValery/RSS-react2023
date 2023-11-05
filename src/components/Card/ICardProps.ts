@@ -1,4 +1,4 @@
-import ICardData from '../../interfaces/ICardData';
+import ICardData from '../../utils/interfaces/ICardData';
 
 interface ICardProps {
   key: number;
