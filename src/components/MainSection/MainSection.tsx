@@ -4,8 +4,9 @@ import LocalStorageService from '../../utils/LocalStorageService';
 import SearchForm from '../SearchForm/SearchForm';
 import CardsList from '../CardsList/CardsList';
 import Loader from '../UI/Loader/Loader';
-import ApiService from '../../service/apiService';
+import ApiService from '../../service/ApiService';
 import Pagination from '../Pagination/Pagination';
+import classes from './MainSection.module.css';
 
 function MainSection() {
   const [cardsList, setCardsList] = useState<ICardData[]>([]);
@@ -47,23 +48,23 @@ function MainSection() {
   }, [updateCardsSection]);
 
   let dataToShow: JSX.Element;
-  if (cardsList.length && !error) {
+  if (cardsList.length && !error && !isLoading) {
     dataToShow = <CardsList list={cardsList} />;
   } else if (!cardsList.length && !isLoading) {
     dataToShow = <div>Oooops.. {error}</div>;
   } else dataToShow = <Loader />;
 
   return (
-    <div>
-      <h3>{`we have ${totalCards || 0} ${
-        LocalStorageService.getData('searchValue') || 'Charactores'
-      }`}</h3>
+    <div className={classes.mainSectionWrapper}>
       <div className="main-wrapper">
         <SearchForm
           updateCardsSection={updateCardsSection}
           page={setCurrentPage}
         />
-        <div>
+        <h3 className={classes.subTitle}>{`we have ${totalCards || 0} ${
+          LocalStorageService.getData('searchValue') || 'Charactores'
+        }`}</h3>
+        <div className={classes.cardsSection}>
           <div>
             <div>{dataToShow}</div>
             {cardsList && (
