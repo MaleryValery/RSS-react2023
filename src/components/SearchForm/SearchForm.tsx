@@ -43,6 +43,8 @@ function SearchForm(props: ISearchFormProps) {
   const handleSelect = async (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     setLimit(+value);
+    page(1);
+    search.set('page', '1');
     navigation('/');
   };
 
