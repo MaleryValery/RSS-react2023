@@ -1,14 +1,32 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './Header.module.css';
+import CustomButton from '../UI/CustomBotton/CustomButton';
+import IHeader from './IHeader';
 
-class Header extends Component {
-  render() {
-    return (
-      <header className={classes.header}>
-        <h1>Ricky App</h1>
-      </header>
-    );
-  }
+function Header(props: IHeader) {
+  const [isError, setIsError] = useState(false);
+  const { children } = props;
+
+  useEffect(() => {
+    if (isError) {
+      throw new Error('You got an error 💥');
+    }
+  }, [isError]);
+
+  const handleError = () => {
+    setIsError(true);
+  };
+
+  return (
+    <header className={classes.header}>
+      <div className={classes.logo} />
+      <h1 className={classes.headerTitle}>Ricky App</h1>
+      <CustomButton className={classes.headerButton} onClick={handleError}>
+        error
+      </CustomButton>
+      {children}
+    </header>
+  );
 }
 
 export default Header;
