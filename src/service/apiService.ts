@@ -3,26 +3,28 @@ import IResponseData from './IResponseData';
 import ICardData from '../utils/interfaces/ICardData';
 
 class ApiService {
-  private static baseUrl = `https://rickandmortyapi.com/api/`;
+  private static baseUrl = `https://api.potterdb.com/v1/`;
 
-  private static endpoint = `character`;
+  private static endpoint = `characters`;
 
   public static getCharacters = async (
     value?: string | null,
+    limit: number = 10,
     page: number = 1
   ): Promise<IResponseData> => {
     const response = await axios.get(`${this.baseUrl}/${this.endpoint}/`, {
       params: {
-        page,
-        name: value || '',
+        'filter[name_cont_any]': value || 'potter',
+        'page[size]': limit,
+        'page[number]': page,
       },
     });
     return response.data;
   };
 
-  public static getCharactersById = async (id: number): Promise<ICardData> => {
+  public static getCharactersById = async (id: string): Promise<ICardData> => {
     const response = await axios.get(`${this.baseUrl}/${this.endpoint}/${id}`);
-    return response.data;
+    return response.data.data;
   };
 }
 

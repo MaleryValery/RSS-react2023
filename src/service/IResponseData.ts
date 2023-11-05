@@ -1,13 +1,23 @@
 import ICardData from '../utils/interfaces/ICardData';
 
 interface IResponseData {
-  info: {
-    count: number;
-    pages: number;
-    next: string;
-    prev: null;
+  data: ICardData[];
+  meta: {
+    pagination: {
+      current: number;
+      next: number;
+      last: number;
+      records: number;
+    };
+    copyright: string;
+    generated_at: string;
   };
-  results: ICardData[];
+  links: {
+    self: string;
+    current: string;
+    next: string;
+    last: string;
+  };
 }
 
 export default IResponseData;

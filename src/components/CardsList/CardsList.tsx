@@ -7,7 +7,7 @@ function CardsList(props: ICardListProps) {
   return (
     <div className={classes.cardsListWrapper}>
       {list.map((item) => (
-        <Card key={Number(item.id)} card={item} />
+        <Card key={Math.random()} card={item} />
       ))}
     </div>
   );

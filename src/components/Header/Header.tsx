@@ -20,7 +20,7 @@ function Header(props: IHeader) {
   return (
     <header className={classes.header}>
       <div className={classes.logo} />
-      <h1 className={classes.headerTitle}>Ricky App</h1>
+      <h1 className={classes.headerTitle}>React App</h1>
       <CustomButton className={classes.headerButton} onClick={handleError}>
         error
       </CustomButton>
