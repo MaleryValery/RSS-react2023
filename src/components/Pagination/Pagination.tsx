@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import CustomButton from '../UI/CustomBotton/CustomButton';
 import IPaginatinProps from './IPaginationProps';
+import classes from './Pagination.module.css';
 
 function Pagination(props: IPaginatinProps) {
   const { currentPage, setCurrentPage, isNextPage } = props;
@@ -24,14 +25,18 @@ function Pagination(props: IPaginatinProps) {
   };
 
   return (
-    <div>
-      <CustomButton onClick={onPrevButton} disabled={currentPage === 1}>
-        ⬅️
-      </CustomButton>
+    <div className={classes.paginationControllers}>
+      <CustomButton
+        className={classes.arrowLeft}
+        onClick={onPrevButton}
+        disabled={currentPage === 1}
+      />
       <p>{currentPage}</p>
-      <CustomButton onClick={onNextButton} disabled={!isNextPage}>
-        ➡️
-      </CustomButton>
+      <CustomButton
+        className={classes.arrowRigth}
+        onClick={onNextButton}
+        disabled={!isNextPage}
+      />
     </div>
   );
 }
