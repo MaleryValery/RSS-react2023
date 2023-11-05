@@ -13,7 +13,7 @@ class ApiService {
   ): Promise<IResponseData> => {
     const response = await axios.get(`${this.baseUrl}/${this.endpoint}/`, {
       params: {
-        _page: page,
+        page,
         name: value || '',
       },
     });
