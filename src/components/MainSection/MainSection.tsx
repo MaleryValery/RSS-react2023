@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ICardData from '../../utils/interfaces/ICardData';
 import LocalStorageService from '../../utils/LocalStorageService';
 import SearchForm from '../SearchForm/SearchForm';
@@ -12,24 +13,35 @@ function MainSection() {
   const [cardsList, setCardsList] = useState<ICardData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [limit, setLimit] = useState(5);
   const [totalCards, setTotalCards] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPage, setIsNexPage] = useState(false);
+  const [, setSearch] = useSearchParams();
 
   const updateCardsSection = useCallback(
-    async (value?: string): Promise<void> => {
+    async (
+      value?: string,
+      pageLimit?: number,
+      page?: number
+    ): Promise<void> => {
       try {
+        setSearch({ page: currentPage.toString(), limit: limit.toString() });
         setIsLoading(true);
         setCardsList([]);
         setIsNexPage(false);
-        const responseData = await ApiService.getCharacters(value, currentPage);
-        if (responseData.results.length) {
-          setCardsList(responseData.results);
-          setTotalPages(responseData.info.pages);
+        const responseData = await ApiService.getCharacters(
+          value,
+          pageLimit,
+          page
+        );
+        if (responseData.data && responseData.data.length) {
+          setCardsList(responseData.data);
+          setTotalPages(responseData.meta.pagination.last);
           setError('');
-          setTotalCards(responseData.info.count);
-          setIsNexPage(responseData.info.next !== null);
+          setTotalCards(responseData.meta.pagination.records);
+          setIsNexPage(responseData.meta.pagination.next !== null);
         }
       } catch (err) {
         setTotalCards(0);
@@ -39,13 +51,13 @@ function MainSection() {
         setIsLoading(false);
       }
     },
-    [currentPage]
+    [currentPage, limit, setSearch]
   );
 
   useEffect(() => {
     const inputValue = LocalStorageService.getData('searchValue') || '';
-    updateCardsSection(inputValue);
-  }, [updateCardsSection]);
+    updateCardsSection(inputValue, limit, currentPage);
+  }, [currentPage, limit, updateCardsSection]);
 
   let dataToShow: JSX.Element;
   if (cardsList.length && !error && !isLoading) {
@@ -60,6 +72,8 @@ function MainSection() {
         <SearchForm
           updateCardsSection={updateCardsSection}
           page={setCurrentPage}
+          setLimit={setLimit}
+          limit={limit}
         />
         <h3 className={classes.subTitle}>{`we have ${totalCards || 0} ${
           LocalStorageService.getData('searchValue') || 'Charactores'
