@@ -1,0 +1,36 @@
+.header {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+  gap: 20px;
+  color: fuchsia;
+}
+
+.headerTitle {
+  font-size: 40px;
+  font-family: 'Neucha';
+}
+
+.logo {
+  background-image: url('../../assets/images/rick-head.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 50px;
+}
+
+.headerButton {
+  border: 2px solid greenyellow;
+  padding: 5px 15px;
+  color: white;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+
+.headerButton:hover {
+  border: 2px solid yellowgreen;
+  background: yellowgreen;
+  color: black;
+}

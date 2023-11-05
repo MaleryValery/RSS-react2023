@@ -1,0 +1,30 @@
+.paginationControllers {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  font-size: 24px;
+}
+
+.arrowLeft,
+.arrowRigth {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(153, 205, 50, 0.4);
+  border-radius: 50%;
+}
+
+.arrowLeft {
+  background-image: url('../../assets/icons/left.png');
+  background-size: cover;
+}
+.arrowRigth {
+  background-image: url('../../assets/icons/right.png');
+  background-size: cover;
+}
+
+.arrowLeft:disabled,
+.arrowRigth:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+}
