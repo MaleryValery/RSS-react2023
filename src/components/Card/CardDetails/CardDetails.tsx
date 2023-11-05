@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ICardData from '../../../utils/interfaces/ICardData';
 import Loader from '../../UI/Loader/Loader';
-import ApiService from '../../../service/ApiService';
 import classes from './CardDetails.module.css';
+import ApiService from '../../../service/apiService';
 
 function CardDetails() {
   const { id } = useParams();

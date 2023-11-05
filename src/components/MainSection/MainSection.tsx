@@ -4,7 +4,7 @@ import LocalStorageService from '../../utils/LocalStorageService';
 import SearchForm from '../SearchForm/SearchForm';
 import CardsList from '../CardsList/CardsList';
 import Loader from '../UI/Loader/Loader';
-import ApiService from '../../service/ApiService';
+import ApiService from '../../service/apiService';
 import Pagination from '../Pagination/Pagination';
 import classes from './MainSection.module.css';
 
