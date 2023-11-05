@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { CardDetails } from '../components/Card/CardDetails/CardDetails';
+import CardDetails from '../components/Card/CardDetails/CardDetails';
 import ErrorElement from '../components/UI/ErrorElement/ErrorElement';
 import Home from '../pages/Home';
 import PageNotFound from '../pages/PageNotFound';

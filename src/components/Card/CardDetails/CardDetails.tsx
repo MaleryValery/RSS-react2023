@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, LoaderFunction, defer, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ICardData from '../../../utils/interfaces/ICardData';
 import Loader from '../../UI/Loader/Loader';
-import IDetailsIdParams from '../IDetailsIdParams';
 import ApiService from '../../../service/ApiService';
 import classes from './CardDetails.module.css';
 
-export function CardDetails() {
+function CardDetails() {
   const { id } = useParams();
   const [card, setCard] = useState<ICardData>();
   const [isLoading, setIsLoading] = useState(false);
@@ -57,12 +56,5 @@ export function CardDetails() {
     </div>
   );
 }
-export const cardDetailsLoader: LoaderFunction<IDetailsIdParams> = async ({
-  params,
-}) => {
-  const { id } = params;
 
-  if (!id) return null;
-
-  return defer({ card: ApiService.getCharactersById(+id) });
-};
+export default CardDetails;
