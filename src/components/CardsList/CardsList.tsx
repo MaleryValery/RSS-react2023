@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
+import { useContext } from 'react';
 import classes from './CardsList.module.css';
 import Card from '../Card/Card';
-import { useSearchContext } from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/SearchContext';
 
 function CardsList() {
-  const { cardsList } = useSearchContext();
-  console.log('cardsList', cardsList);
+  const { cardsList } = useContext(SearchContext);
   return (
     <div className={classes.cardsListWrapper}>
       {cardsList.map((item) => (

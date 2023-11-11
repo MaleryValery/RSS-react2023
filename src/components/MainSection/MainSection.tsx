@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import LocalStorageService from '../../utils/LocalStorageService';
 import SearchForm from '../SearchForm/SearchForm';
 import CardsList from '../CardsList/CardsList';
@@ -6,10 +6,14 @@ import Loader from '../UI/Loader/Loader';
 import ApiService from '../../service/apiService';
 import Pagination from '../Pagination/Pagination';
 import classes from './MainSection.module.css';
-import { SearchProvider } from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/SearchContext';
 import ICardData from '../../utils/interfaces/ICardData';
+import ISearchContextrProps from '../../contexts/ISearchContext';
 
 function MainSection() {
+  const [searchValue, setSearchValue] = useState(
+    LocalStorageService.getData('searchValue') || ''
+  );
   const [cardsList, setCardsList] = useState<ICardData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -55,6 +59,16 @@ function MainSection() {
     updateCardsSection(inputValue, limit, currentPage);
   }, [currentPage, limit, updateCardsSection]);
 
+  const contextValues: ISearchContextrProps = useMemo(
+    () => ({
+      searchValue,
+      setSearchValue,
+      cardsList,
+      setCardsList,
+    }),
+    [cardsList, searchValue]
+  );
+
   let dataToShow: JSX.Element;
   if (cardsList.length && !error && !isLoading) {
     dataToShow = <CardsList />;
@@ -63,7 +77,7 @@ function MainSection() {
   } else dataToShow = <Loader />;
 
   return (
-    <SearchProvider>
+    <SearchContext.Provider value={contextValues}>
       <div className={classes.mainSectionWrapper}>
         <div className="main-wrapper">
           <SearchForm
@@ -91,7 +105,7 @@ function MainSection() {
           </div>
         </div>
       </div>
-    </SearchProvider>
+    </SearchContext.Provider>
   );
 }
 

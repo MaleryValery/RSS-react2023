@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, KeyboardEvent } from 'react';
+import { ChangeEvent, MouseEvent, KeyboardEvent, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomInput from '../UI/CustomInput/CustomInput';
 import CustomButton from '../UI/CustomButton/CustomButton';
@@ -7,11 +7,11 @@ import ISearchFormProps from './ISearchFormProps';
 import classes from './SearchForm.module.css';
 import CustomSelect from '../UI/CustomSelect/CustomSelect';
 import { SELECT_OPTIONS } from '../../utils/const/const';
-import { useSearchContext } from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/SearchContext';
 
 function SearchForm(props: ISearchFormProps) {
   const navigation = useNavigate();
-  const { searchValue, setSearchValue } = useSearchContext();
+  const { searchValue, setSearchValue } = useContext(SearchContext);
   const { updateCardsSection, page, limit, setLimit } = props;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
