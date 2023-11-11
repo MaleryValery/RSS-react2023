@@ -1,4 +1,4 @@
-import ICardData from '../../../utils/interfaces/ICardData';
+import ICardData from '../utils/interfaces/ICardData';
 
 const card: ICardData = {
   attributes: {
