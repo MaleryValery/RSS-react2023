@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import classes from './Header.module.css';
-import CustomButton from '../UI/CustomBotton/CustomButton';
+import CustomButton from '../UI/CustomButton/CustomButton';
 import IHeader from './IHeader';
 
 function Header(props: IHeader) {

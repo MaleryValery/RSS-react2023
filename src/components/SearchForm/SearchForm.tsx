@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, MouseEvent, KeyboardEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import CustomInput from '../UI/CustomInput/CustomInput';
-import CustomButton from '../UI/CustomBotton/CustomButton';
+import CustomButton from '../UI/CustomButton/CustomButton';
 import LocalStorageService from '../../utils/LocalStorageService';
 import ISearchFormProps from './ISearchFormProps';
 import classes from './SearchForm.module.css';

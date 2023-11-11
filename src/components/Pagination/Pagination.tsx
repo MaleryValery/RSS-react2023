@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import CustomButton from '../UI/CustomBotton/CustomButton';
+import CustomButton from '../UI/CustomButton/CustomButton';
 import IPaginatinProps from './IPaginationProps';
 import classes from './Pagination.module.css';
 

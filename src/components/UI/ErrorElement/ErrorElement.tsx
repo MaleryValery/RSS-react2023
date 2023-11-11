@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './ErrorElement.module.css';
-import CustomButton from '../CustomBotton/CustomButton';
+import CustomButton from '../CustomButton/CustomButton';
 
 function ErrorElement() {
   const navigator = useNavigate();
