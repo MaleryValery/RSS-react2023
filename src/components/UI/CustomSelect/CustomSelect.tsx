@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import ICustomSelectProps from './ICustomSelectProps';
 
 function CustomSelect(props: ICustomSelectProps) {
@@ -5,7 +6,7 @@ function CustomSelect(props: ICustomSelectProps) {
   return (
     <select className={classNameSelect} onChange={onChange} value={value}>
       {items.map((item) => (
-        <option key={Math.random()} className={classNameOpt}>
+        <option key={uuidv4()} className={classNameOpt}>
           {item}
         </option>
       ))}

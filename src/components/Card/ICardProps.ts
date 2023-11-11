@@ -1,7 +1,7 @@
 import ICardData from '../../utils/interfaces/ICardData';
 
 interface ICardProps {
-  key: number;
+  key: string;
   card: ICardData;
 }
 
