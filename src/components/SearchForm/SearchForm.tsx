@@ -1,25 +1,22 @@
-import { ChangeEvent, useState, MouseEvent, KeyboardEvent } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ChangeEvent, MouseEvent, KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CustomInput from '../UI/CustomInput/CustomInput';
 import CustomButton from '../UI/CustomButton/CustomButton';
 import LocalStorageService from '../../utils/LocalStorageService';
 import ISearchFormProps from './ISearchFormProps';
 import classes from './SearchForm.module.css';
 import CustomSelect from '../UI/CustomSelect/CustomSelect';
-import SELECT_OPTIONS from '../../utils/const/const';
+import { SELECT_OPTIONS } from '../../utils/const/const';
+import { useSearchContext } from '../../contexts/SearchContext';
 
 function SearchForm(props: ISearchFormProps) {
   const navigation = useNavigate();
-  const [inputValue, setInputValue] = useState(
-    LocalStorageService.getData('searchValue') || ''
-  );
-  const [search, setSearch] = useSearchParams();
+  const { searchValue, setSearchValue } = useSearchContext();
   const { updateCardsSection, page, limit, setLimit } = props;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setInputValue(value);
-    LocalStorageService.setData('searchValue', value);
+    setSearchValue(value);
   };
 
   const onSubmit = async (
@@ -27,11 +24,9 @@ function SearchForm(props: ISearchFormProps) {
   ): Promise<void> => {
     e.preventDefault();
     page(1);
-    search.set('page', '1');
-    setSearch(search);
-    setInputValue(inputValue);
-    LocalStorageService.setData('searchValue', inputValue || '');
-    await updateCardsSection(inputValue, limit, 1);
+    setSearchValue(searchValue);
+    LocalStorageService.setData('searchValue', searchValue || '');
+    await updateCardsSection(searchValue, limit, 1);
   };
 
   const handleInputSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -44,7 +39,6 @@ function SearchForm(props: ISearchFormProps) {
     const { value } = event.target;
     setLimit(+value);
     page(1);
-    search.set('page', '1');
     navigation('/');
   };
 
@@ -53,7 +47,7 @@ function SearchForm(props: ISearchFormProps) {
       <CustomInput
         placeholder='search for "Rick and Morty" characters'
         onChange={handleChange}
-        value={inputValue}
+        value={searchValue}
         onKeyDown={handleInputSubmit}
         className={classes.customInput}
       />
