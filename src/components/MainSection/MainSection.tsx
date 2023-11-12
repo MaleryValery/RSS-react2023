@@ -3,7 +3,7 @@ import LocalStorageService from '../../utils/LocalStorageService';
 import SearchForm from '../SearchForm/SearchForm';
 import CardsList from '../CardsList/CardsList';
 import Loader from '../UI/Loader/Loader';
-import ApiService from '../../service/apiService';
+import { getCharacters } from '../../service/apiService';
 import Pagination from '../Pagination/Pagination';
 import classes from './MainSection.module.css';
 import SearchContext from '../../contexts/SearchContext';
@@ -32,11 +32,7 @@ function MainSection() {
       try {
         setIsLoading(true);
         setIsNexPage(false);
-        const responseData = await ApiService.getCharacters(
-          value,
-          pageLimit,
-          page
-        );
+        const responseData = await getCharacters(value, pageLimit, page);
         if (responseData.data && responseData.data.length) {
           setCardsList(responseData.data);
           setTotalPages(responseData.meta.pagination.last);
@@ -73,7 +69,7 @@ function MainSection() {
   if (cardsList.length && !error && !isLoading) {
     dataToShow = <CardsList />;
   } else if (!cardsList.length && !isLoading) {
-    dataToShow = <div>Oooops.. {error}</div>;
+    dataToShow = <div>Oooops.. i cannot find anything</div>;
   } else dataToShow = <Loader />;
 
   return (
