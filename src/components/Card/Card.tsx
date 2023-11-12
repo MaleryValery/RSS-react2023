@@ -13,6 +13,7 @@ function Card(props: ICardProps) {
   return (
     <Link
       to={`details/${card.id}`}
+      data-testid="card-list-character"
       onClick={(event) => {
         if (location.pathname.includes('details')) {
           event.preventDefault();
@@ -22,7 +23,12 @@ function Card(props: ICardProps) {
       <div className={classes.movieCard}>
         <img src={image} alt="hero" className={classes.cardImg} />
         <div className={classes.cardContent}>
-          <span className={classes.cardTitleSmall}>{card.attributes.name}</span>
+          <span
+            data-testid="card-character-name"
+            className={classes.cardTitleSmall}
+          >
+            {card.attributes.name}
+          </span>
         </div>
       </div>
     </Link>
