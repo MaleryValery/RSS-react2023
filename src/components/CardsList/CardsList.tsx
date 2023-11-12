@@ -8,6 +8,7 @@ function CardsList() {
   const { cardsList } = useContext(SearchContext);
   return (
     <div className={classes.cardsListWrapper}>
+      {!cardsList.length && 'cannot find anything'}
       {cardsList.map((item) => (
         <Card key={uuidv4()} card={item} />
       ))}
