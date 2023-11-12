@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import ICardData from '../../../utils/interfaces/ICardData';
 import Loader from '../../UI/Loader/Loader';
 import classes from './CardDetails.module.css';
-import ApiService from '../../../service/apiService';
+import { getCharactersById } from '../../../service/apiService';
 import img from '../../../assets/images/no-img.png';
 
 function CardDetails() {
@@ -15,7 +15,7 @@ function CardDetails() {
     try {
       setIsLoading(true);
       if (cardId) {
-        const cardData = await ApiService.getCharactersById(cardId);
+        const cardData = await getCharactersById(cardId);
         setCard(cardData);
       }
     } catch (error) {
@@ -51,7 +51,7 @@ function CardDetails() {
             <p>nationality: {card.attributes.nationality || 'unknown'}</p>
             <p>died: {card.attributes.died || 'unknown'}</p>
             <Link to="/">
-              <div className={classes.cardDetailsCloseBtn}>close ❌</div>
+              <div className={classes.cardDetailsCloseBtn}>close</div>
             </Link>
           </div>
         </div>
