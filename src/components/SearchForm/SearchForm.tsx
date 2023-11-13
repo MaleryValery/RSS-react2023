@@ -1,0 +1,74 @@
+import { ChangeEvent, MouseEvent, KeyboardEvent, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CustomInput from '../UI/CustomInput/CustomInput';
+import CustomButton from '../UI/CustomButton/CustomButton';
+import LocalStorageService from '../../utils/LocalStorageService';
+import ISearchFormProps from './ISearchFormProps';
+import classes from './SearchForm.module.css';
+import CustomSelect from '../UI/CustomSelect/CustomSelect';
+import { SELECT_OPTIONS } from '../../utils/const/const';
+import SearchContext from '../../contexts/SearchContext';
+
+function SearchForm(props: ISearchFormProps) {
+  const navigation = useNavigate();
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const { updateCardsSection, page, limit, setLimit } = props;
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value.trim();
+    setSearchValue(value);
+  };
+
+  const onSubmit = async (
+    e: MouseEvent | KeyboardEvent<HTMLInputElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    page(1);
+    setSearchValue(searchValue);
+    LocalStorageService.setData('searchValue', searchValue || '');
+    await updateCardsSection(searchValue, limit, 1);
+  };
+
+  const handleInputSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSubmit(e);
+    }
+  };
+
+  const handleSelect = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    setLimit(+value);
+    page(1);
+    navigation('/');
+  };
+
+  return (
+    <div className={classes.serchFormWrapper}>
+      <CustomInput
+        placeholder='search for "Rick and Morty" characters'
+        onChange={handleChange}
+        value={searchValue}
+        onKeyDown={handleInputSubmit}
+        className={classes.customInput}
+      />
+      <CustomSelect
+        items={SELECT_OPTIONS}
+        value={limit}
+        classNameSelect={classes.searshSelect}
+        classNameOpt={classes.searshOption}
+        onChange={handleSelect}
+      />
+      <CustomButton
+        className={classes.customButton}
+        disabled={false}
+        onClick={async (event?: MouseEvent<HTMLElement>): Promise<void> => {
+          if (event) onSubmit(event);
+        }}
+      >
+        search
+      </CustomButton>
+    </div>
+  );
+}
+
+export default SearchForm;
