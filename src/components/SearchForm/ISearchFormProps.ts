@@ -5,8 +5,6 @@ interface ISearchFormProps {
     page?: number
   ) => Promise<void>;
   page: (page: number) => void | Promise<void>;
-  setLimit: React.Dispatch<React.SetStateAction<number>>;
-  limit: number;
 }
 
 export default ISearchFormProps;
