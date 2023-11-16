@@ -5,7 +5,7 @@ import { BASE_URL, ENDPOINT } from '../utils/const/const';
 
 export const getCharacters = async (
   value?: string | null,
-  limit: number = 10,
+  limit: string = '5',
   page: number = 1
 ): Promise<IResponseData> => {
   const response = await axios.get(`${BASE_URL}/${ENDPOINT}/`, {
