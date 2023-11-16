@@ -3,6 +3,7 @@ import ICustomSelectProps from './ICustomSelectProps';
 
 function CustomSelect(props: ICustomSelectProps) {
   const { items, classNameSelect, classNameOpt, onChange, value } = props;
+
   return (
     <select className={classNameSelect} onChange={onChange} value={value}>
       {items.map((item) => (
