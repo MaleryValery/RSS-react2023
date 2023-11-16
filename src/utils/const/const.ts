@@ -7,5 +7,9 @@ export const DEFAULT_CONTEXT = {
   setCardsList: () => {},
 };
 
+export const SERCH_KEY = {
+  searchValue: 'searchValue',
+};
+
 export const BASE_URL = `https://api.potterdb.com/v1/`;
 export const ENDPOINT = `characters`;

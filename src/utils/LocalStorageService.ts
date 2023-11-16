@@ -1,10 +1,10 @@
 class LocalStorageService {
   public static setData(key: string, value: string): void {
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, value || '');
   }
 
   public static getData(key: string): string | null {
-    return localStorage.getItem(key) ? localStorage.getItem(key) : null;
+    return localStorage.getItem(key) ? localStorage.getItem(key) : '';
   }
 
   public static removeData(key: string): void {
