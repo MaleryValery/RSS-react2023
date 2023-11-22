@@ -6,12 +6,13 @@ const initialState = {
   value: LocalStorageService.getData(SERCH_KEY.searchValue) || '',
 };
 
-const searchSlice = createSlice({
+export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
     setSearch(state, action: PayloadAction<string>) {
       state.value = action.payload;
+      LocalStorageService.setData(SERCH_KEY.searchValue, action.payload);
     },
   },
 });

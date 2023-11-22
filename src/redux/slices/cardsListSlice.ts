@@ -5,7 +5,7 @@ const initialState: { value: ICardData[] } = {
   value: [],
 };
 
-const cardsListSlice = createSlice({
+export const cardsListSlice = createSlice({
   initialState,
   name: 'cardsList',
   reducers: {
