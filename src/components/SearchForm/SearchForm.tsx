@@ -1,37 +1,39 @@
-import { ChangeEvent, MouseEvent, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  ChangeEvent,
+  MouseEvent,
+  KeyboardEvent,
+  useState,
+  SyntheticEvent,
+  useEffect,
+} from 'react';
+import { useSearchParams } from 'react-router-dom';
 import CustomInput from '../UI/CustomInput/CustomInput';
 import CustomButton from '../UI/CustomButton/CustomButton';
-import LocalStorageService from '../../utils/LocalStorageService';
-import ISearchFormProps from './ISearchFormProps';
 import classes from './SearchForm.module.css';
+import { useAppSelector } from '../../redux/hook';
+import useActions from '../../utils/hooks/dispatchActions';
 import CustomSelect from '../UI/CustomSelect/CustomSelect';
 import { SELECT_OPTIONS } from '../../utils/const/const';
-import { RootState } from '../../redux/store';
-import { setSearch } from '../../redux/slices/searchSlice';
-import { setLimit } from '../../redux/slices';
 
-function SearchForm(props: ISearchFormProps) {
-  const search = useSelector((state: RootState) => state.search.value);
-  const limit = useSelector((state: RootState) => state.limit.value);
-  const dispatch = useDispatch();
-  const navigation = useNavigate();
-  const { updateCardsSection, page } = props;
+function SearchForm() {
+  const search = useAppSelector((state) => state.search.value);
+  const limit = useAppSelector((state) => state.limit.limitValue);
+  const { setSearch, setLimit } = useActions();
+  const [inputValue, setInputValue] = useState(search);
+  const [, setSearchParams] = useSearchParams();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    dispatch(setSearch(value));
+    setInputValue(value);
   };
 
-  const onSubmit = async (
-    e: MouseEvent | KeyboardEvent<HTMLInputElement>
-  ): Promise<void> => {
+  const onSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
-    page(1);
-    dispatch(setSearch(search));
-    LocalStorageService.setData('searchValue', search);
-    updateCardsSection();
+    setSearch(inputValue);
+    setSearchParams((searchParams) => {
+      searchParams.set('page', '1');
+      return searchParams;
+    });
   };
 
   const handleInputSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -40,40 +42,42 @@ function SearchForm(props: ISearchFormProps) {
     }
   };
 
-  const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
-    dispatch(setLimit(value));
-    page(1);
-    navigation('/');
-    updateCardsSection();
-  };
+  useEffect(() => {
+    setSearchParams((searchParams) => {
+      searchParams.set('page', '1');
+      return searchParams;
+    });
+  }, [setSearchParams]);
 
   return (
-    <div className={classes.serchFormWrapper}>
+    <form className={classes.serchFormWrapper} onSubmit={onSubmit}>
       <CustomInput
-        placeholder='search for "Rick and Morty" characters'
+        placeholder="search for characters"
         onChange={handleChange}
-        value={search}
+        value={inputValue}
         onKeyDown={handleInputSubmit}
         className={classes.customInput}
       />
       <CustomSelect
         items={SELECT_OPTIONS}
         value={limit}
-        classNameSelect={classes.searshSelect}
-        classNameOpt={classes.searshOption}
-        onChange={handleSelect}
+        onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+          setLimit(event.target.value);
+          setSearchParams((searchParams) => {
+            searchParams.set('page', '1');
+            return searchParams;
+          });
+        }}
       />
       <CustomButton
+        title="search"
         className={classes.customButton}
         disabled={false}
         onClick={(event?: MouseEvent<HTMLElement>): void => {
           if (event) onSubmit(event);
         }}
-      >
-        search
-      </CustomButton>
-    </div>
+      />
+    </form>
   );
 }
 
