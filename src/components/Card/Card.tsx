@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import classes from './Card.module.css';
+import { MouseEvent, useCallback } from 'react';
 import ICardProps from './ICardProps';
 import img from '../../assets/images/no-img.png';
+import classes from './Card.module.css';
 
 function Card(props: ICardProps) {
   const location = useLocation();
@@ -10,15 +11,20 @@ function Card(props: ICardProps) {
 
   const image = card.attributes.image ? card.attributes.image : img;
 
+  const handleClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      if (location.pathname.includes('details')) {
+        event.preventDefault();
+      }
+    },
+    [location.pathname]
+  );
+
   return (
     <Link
       to={`details/${card.id}`}
       data-testid="card-list-character"
-      onClick={(event) => {
-        if (location.pathname.includes('details')) {
-          event.preventDefault();
-        }
-      }}
+      onClick={handleClick}
     >
       <div className={classes.movieCard}>
         <img src={image} alt="hero" className={classes.cardImg} />

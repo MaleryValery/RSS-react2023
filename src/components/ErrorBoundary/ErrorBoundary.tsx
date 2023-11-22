@@ -1,7 +1,9 @@
 import { Component } from 'react';
-import IErrorBoundaryProps from './IErrorBoundaryProps';
-import IErrorBoundaryState from './IErrorBoundaryState';
 import ErrorElement from '../UI/ErrorElement/ErrorElement';
+import {
+  IErrorBoundaryProps,
+  IErrorBoundaryState,
+} from './ErrorBoundary.types';
 
 class ErrorBoundary extends Component<
   IErrorBoundaryProps,

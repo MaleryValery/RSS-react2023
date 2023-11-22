@@ -1,7 +1,7 @@
 import ICardData from '../utils/interfaces/ICardData';
 
 interface IResponseData {
-  data: ICardData[];
+  data: ICardData[] | ICardData;
   meta: {
     pagination: {
       current: number;

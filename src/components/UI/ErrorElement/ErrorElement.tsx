@@ -12,12 +12,11 @@ function ErrorElement() {
       <h3 className={classes.errorSubHeading}>WUBBA LUBBA DUB DUB</h3>
       <div className={classes.errorBoundaryImg} />
       <CustomButton
+        title="restart"
         disabled={false}
         onClick={(): void => navigator('/')}
         className={classes.restartButton}
-      >
-        restart
-      </CustomButton>
+      />
     </div>
   );
 }
