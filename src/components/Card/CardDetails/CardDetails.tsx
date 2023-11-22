@@ -1,55 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ICardData from '../../../utils/interfaces/ICardData';
 import Loader from '../../UI/Loader/Loader';
 import classes from './CardDetails.module.css';
-import { getCharactersById } from '../../../service/apiService';
+import { useGetCharacterByIdQuery } from '../../../service/apiService';
 import img from '../../../assets/images/no-img.png';
+import useActions from '../../../utils/hooks/dispatchActions';
+import { useAppSelector } from '../../../redux/hook';
+import ICardData from '../../../utils/interfaces/ICardData';
+import ErrorElement from '../../UI/ErrorElement/ErrorElement';
 
 function CardDetails() {
   const { id } = useParams();
-  const [card, setCard] = useState<ICardData>();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setDetailsLoader } = useActions();
+  const isDetailsLoading = useAppSelector(
+    (state) => state.loader.isDetailsLoading
+  );
 
-  const getOneCardData = async (cardId?: string) => {
-    try {
-      setIsLoading(true);
-      if (cardId) {
-        const cardData = await getCharactersById(cardId);
-        setCard(cardData);
-      }
-    } catch (error) {
-      throw new Error(`We got error: ${(error as Error).message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { isLoading, isError, data } = useGetCharacterByIdQuery(id!);
+
+  const response = data?.data as ICardData;
 
   useEffect(() => {
-    getOneCardData(id);
-  }, [id]);
+    setDetailsLoader(isLoading);
+  }, [isLoading, setDetailsLoader]);
 
   return (
     <div className={classes.cardDetailsWrapper}>
-      {isLoading && <Loader />}
-      {!isLoading && card && (
+      {!isDetailsLoading && isError && <ErrorElement />}
+      {isDetailsLoading && !isError && <Loader />}
+      {!isDetailsLoading && !isError && !!response && (
         <div className={classes.cardContentWrapper}>
           <h2 className={classes.cardDetailsTitle}>
-            {card?.attributes.name || 'unknown'}
+            {response?.attributes.name || 'unknown'}
           </h2>
           <div className={classes.cardDetailsImgBox}>
             <img
               className={classes.cardDetailsImg}
-              src={card.attributes.image || img}
+              src={response.attributes.image || img}
               alt="hero"
             />
           </div>
           <div className={classes.cardDetailsText}>
-            <p>Family: {card.attributes.family_members[0] || 'unknown'}</p>
-            <p>Gender: {card.attributes.gender || 'unknown'}</p>
-            <p>Jobs: {card.attributes.jobs || 'unknown'}</p>
-            <p>nationality: {card.attributes.nationality || 'unknown'}</p>
-            <p>died: {card.attributes.died || 'unknown'}</p>
+            <p>Family: {response.attributes.family_members[0] || 'unknown'}</p>
+            <p>Gender: {response.attributes.gender || 'unknown'}</p>
+            <p>Jobs: {response.attributes.jobs || 'unknown'}</p>
+            <p>nationality: {response.attributes.nationality || 'unknown'}</p>
+            <p>died: {response.attributes.died || 'unknown'}</p>
             <Link to="/">
               <div className={classes.cardDetailsCloseBtn}>close</div>
             </Link>
