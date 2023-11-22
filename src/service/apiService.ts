@@ -1,24 +1,32 @@
-import axios from 'axios';
-import IResponseData from './IResponseData';
-import ICardData from '../utils/interfaces/ICardData';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import ICardData from '../utils/interfaces/ICardData';
 import { BASE_URL, ENDPOINT } from '../utils/const/const';
+import IResponseData from './IResponseData';
 
-export const getCharacters = async (
-  value?: string | null,
-  limit: string = '5',
-  page: number = 1
-): Promise<IResponseData> => {
-  const response = await axios.get(`${BASE_URL}/${ENDPOINT}/`, {
-    params: {
-      'filter[name_cont_any]': value || 'potter',
-      'page[size]': limit,
-      'page[number]': page,
-    },
-  });
-  return response.data;
+type SearchParams = {
+  value?: string;
+  limitValue?: string;
+  pageValue?: string;
 };
 
-export const getCharactersById = async (id: string): Promise<ICardData> => {
-  const response = await axios.get(`${BASE_URL}/${ENDPOINT}/${id}`);
-  return response.data.data;
-};
+export const charactersAPI = createApi({
+  reducerPath: 'charactersAPI',
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${BASE_URL}`,
+  }),
+  endpoints: (builder) => ({
+    getCharacters: builder.query<IResponseData, SearchParams>({
+      query: ({ value, limitValue, pageValue }) => ({
+        url: `${ENDPOINT}/?filter[name_cont_any]=${value}&page[size]=${limitValue}&page[number]=${pageValue}`,
+      }),
+    }),
+    getCharacterById: builder.query<IResponseData, string>({
+      query: (id: string) => ({
+        url: `${ENDPOINT}/${id}`,
+      }),
+    }),
+  }),
+});
+
+export const { useGetCharactersQuery, useGetCharacterByIdQuery } =
+  charactersAPI;
