@@ -1,0 +1,43 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+@font-face {
+  font-family: 'Cabin-Bold';
+  src: url('./assets/fonts/CabinSketch/CabinSketch-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Cabin';
+  src: url('./assets/fonts/CabinSketch/CabinSketch-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Neucha';
+  src: url('./assets/fonts/Neucha/Neucha-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Voltaire';
+  src: url('./assets/fonts/Voltaire/Voltaire-Regular.ttf');
+  font-weight: 400;
+}
