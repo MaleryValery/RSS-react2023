@@ -1,0 +1,20 @@
+.paginationControllers {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  font-size: 24px;
+}
+
+.arrowLeft,
+.arrowRigth {
+  padding: 5px 10px;
+  background-color: rgba(153, 205, 50, 0.4);
+  border-radius: 10px;
+}
+
+.arrowLeft:disabled,
+.arrowRigth:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+}

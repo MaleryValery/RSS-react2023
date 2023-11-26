@@ -1,0 +1,36 @@
+.mainSectionWrapper {
+  display: flex;
+  flex: 1 2 auto;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardsSection {
+  display: flex;
+  flex: 1 2 auto;
+  gap: 20px;
+
+  width: 100%;
+  padding: 20px;
+}
+
+.subTitle {
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.homeContentWrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.homeMainWrapper {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+}

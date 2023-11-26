@@ -1,0 +1,45 @@
+.errorBoundaryWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  padding: 50px;
+}
+
+.errorBoundaryImg {
+  background-image: url('../../../assets/images/error.png');
+  width: 200px;
+  height: 162px;
+  display: block;
+  background-size: cover;
+}
+
+.errorHeading {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  color: rgb(217, 70, 239);
+  letter-spacing: 2px;
+  transform: skewY(1deg) skewX(10deg);
+}
+
+.errorSubHeading {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  color: #28b485;
+  letter-spacing: 2px;
+  transform: skewY(1deg) skewX(10deg);
+}
+
+.restartButton {
+  background-color: rgb(217, 70, 239);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
