@@ -1,0 +1,41 @@
+.nav {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  gap: 10px;
+  color: black;
+  transition: all 0.3s;
+}
+.navItem {
+  padding: 5px;
+  border-radius: 10px;
+}
+.navItemActive {
+  display: flex;
+  gap: 10px;
+  background-color: black;
+  color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background-image: url('../../public/the-avengers-svgrepo-com.svg');
+  background-size: cover;
+}
+
+.logoTextg {
+  font-size: 30px;
+  user-select: none;
+}

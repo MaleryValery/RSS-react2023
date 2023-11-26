@@ -1,0 +1,30 @@
+.movieCard {
+  max-width: 200px;
+  min-width: 100px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid yellowgreen;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+  padding-bottom: 10px;
+}
+
+.movieCard:hover {
+  transform: scale(101%);
+  box-shadow: 0px 5px 5px rgba(115, 255, 0, 0.3);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-family: 'Neucha';
+}
+
+.cardTitleSmall {
+  font-size: 18px;
+}

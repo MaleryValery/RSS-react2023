@@ -1,0 +1,37 @@
+.serchFormWrapper {
+  display: flex;
+  gap: 20px;
+  padding: 0 40px;
+  justify-content: left;
+}
+
+.customInput {
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 2px solid black;
+  transition: all 0.3s;
+}
+
+.customInput:focus-visible {
+  outline: none;
+}
+
+.customButton {
+  border: 2px solid black;
+  padding: 5px 15px;
+  border-radius: 5px;
+  color: black;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+
+.customButton:hover {
+  border: 2px solid black;
+  background: black;
+  color: white;
+}
+
+.customSelect {
+  border: 2px solid black;
+  border-radius: 5px;
+}
