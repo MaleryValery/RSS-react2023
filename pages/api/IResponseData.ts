@@ -1,10 +1,10 @@
-import ICardData from '../../utils/interfaces/ICardData';
-
-interface IResponseData {
-  data: ICardData[] | ICardData;
+interface IResponseData<T> {
+  data: T;
   meta: {
     pagination: {
       current: number;
+      first: number;
+      prev: number;
       next: number;
       last: number;
       records: number;
@@ -14,6 +14,8 @@ interface IResponseData {
   };
   links: {
     self: string;
+    first: string;
+    prev: string;
     current: string;
     next: string;
     last: string;

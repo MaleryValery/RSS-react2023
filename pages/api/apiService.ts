@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-// import ICardData from '../utils/interfaces/ICardData';
 import { BASE_URL, ENDPOINT } from '../../utils/const/const';
 import IResponseData from './IResponseData';
 import { HYDRATE } from 'next-redux-wrapper';
+import ICardData from '@/utils/interfaces/ICardData';
 
 type SearchParams = {
   value?: string;
@@ -21,12 +21,12 @@ export const charactersAPI = createApi({
     }
   },
   endpoints: (builder) => ({
-    getCharacters: builder.query<IResponseData, SearchParams>({
-      query: ({ value = '', limitValue = '5', pageValue = '1' }) => ({
+    getCharacters: builder.query<IResponseData<ICardData[]>, SearchParams>({
+      query: ({ value = '', limitValue = '10', pageValue = '1' }) => ({
         url: `${ENDPOINT}/?filter[name_cont_any]=${value}&page[size]=${limitValue}&page[number]=${pageValue}`,
       }),
     }),
-    getCharacterById: builder.query<IResponseData, string>({
+    getCharacterById: builder.query<IResponseData<ICardData>, string>({
       query: (id: string) => ({
         url: `${ENDPOINT}/${id}`,
       }),
@@ -34,5 +34,6 @@ export const charactersAPI = createApi({
   }),
 });
 
+export const { getCharacters, getCharacterById } = charactersAPI.endpoints;
 export const { useGetCharactersQuery, useGetCharacterByIdQuery } =
   charactersAPI;

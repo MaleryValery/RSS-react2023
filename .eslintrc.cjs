@@ -2,8 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    jest: true,
-    node: true,
   },
   extends: [
     'airbnb',
@@ -13,7 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:prettier/recommended',
-  ], //
+  ],
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -22,7 +20,6 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   rules: {
