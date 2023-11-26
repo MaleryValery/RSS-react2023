@@ -8,6 +8,7 @@ import ICardData from '@/utils/interfaces/ICardData';
 import IResponseData from '../api/IResponseData';
 import MainSection from '@/components/MainSection/MainSection';
 import CardDetails from '@/components/Card/CardDetails/CardDetails';
+import setDefaultValues from '@/utils/functions/setDefaultValues';
 
 interface IProps {
   responseData: IResponseData<ICardData[]>;
@@ -31,11 +32,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const { query, page, limit, id } = context.query;
 
     const data = await store.dispatch(
-      getCharacters.initiate({
-        value: (query as string) ?? '',
-        limitValue: (limit as string) ?? '10',
-        pageValue: (page as string) ?? '1',
-      })
+      getCharacters.initiate(setDefaultValues({ query, page, limit }))
     );
     const character = await store.dispatch(
       getCharacterById.initiate((id as string) || '')

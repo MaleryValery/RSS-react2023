@@ -50,24 +50,30 @@ function SearchForm() {
   };
 
   return (
-    <form className={styles.serchFormWrapper} onSubmit={onSubmit}>
+    <form className={styles.serchFormWrapper} onSubmit={onSubmit} 
+    data-testid="form">
       <CustomInput
         placeholder="search for characters"
         onChange={handleChange}
         value={searchParams.get('query')?.toString() || ''}
         onKeyDown={handleInputSubmit}
         className={styles.customInput}
+        data-testid="custom-input"
       />
       <CustomSelect
         items={SELECT_OPTIONS}
         value={limitValue}
         classNameSelect={styles.customSelect}
         onChange={handleSelectChange}
+
+      data-testid='custom-select'
       />
       <CustomButton
         title="search"
         className={styles.customButton}
         disabled={false}
+
+      data-testid='custom-button'
         onClick={(event?: MouseEvent<HTMLElement>): void => {
           if (event) onSubmit(event);
         }}

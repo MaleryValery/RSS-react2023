@@ -13,3 +13,4 @@ export const SERCH_KEY = {
 
 export const BASE_URL = `https://api.potterdb.com/v1/`;
 export const ENDPOINT = `characters`;
+

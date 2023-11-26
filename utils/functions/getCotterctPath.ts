@@ -1,8 +1,4 @@
-type UrlQuery = {
-  query: string | string[] | undefined;
-  page: string | string[] | undefined;
-  limit: string | string[] | undefined;
-};
+import UrlQuery from '../types/UrlQuery';
 
 const getCorrectPath = (
   urlRuery: UrlQuery,
@@ -14,19 +10,19 @@ const getCorrectPath = (
     return {
       pathname: isDataisl ? '/details/[id]' : '/',
       query: {
-        id: id ? id : '',
+        query: query || '',
         page: page || '1',
         limit: limit || '10',
-        search: query || '',
+        id: id ? id : '',
       },
     };
   } else
     return {
       pathname: isDataisl ? '/details/[id]' : '/',
       query: {
-        id: id ? id : '',
         page: page || '1',
         limit: limit || '10',
+        id: id ? id : '',
       },
     };
 };

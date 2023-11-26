@@ -29,9 +29,10 @@ function MainSection({ response, children }: MainSectionProps) {
       role="button"
       className={styles.homeContentWrapper}
       onClick={onClose}
+      data-testid="overlay"
     >
       <div className={styles.mainSectionWrapper}>
-        <div className="main-wrapper">
+        <div className="main-wrapper" data-testid="nain-wrapper">
           <SearchForm />
           <div className={styles.homeMainWrapper}>
             {!!response ? <CardsList data={response} /> : <ErrorElement />}

@@ -12,7 +12,7 @@ function CardsList({ data }: { data: IResponseData<ICardData[]> }) {
 
   return (
     <div className={styles.CardsPaginationWrapper}>
-      <h3>
+      <h3 className={styles.infoContext} data-testid="count-info">
         we have {`${totalCards}`} and {`${totalPages} pases`}
       </h3>
       <div className={styles.cardsListWrapper}>

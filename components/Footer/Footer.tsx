@@ -11,7 +11,7 @@ function Footer() {
         text="React Next.js App"
       />
       <p className={styles.footerText}>
-        {new Date().getFullYear()} React Next.js App
+        {new Date().getFullYear()}
       </p>
     </footer>
   );

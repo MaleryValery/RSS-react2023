@@ -10,7 +10,6 @@ import getCorrectPath from '@/utils/functions/getCotterctPath';
 function Card({ card }: { card: ICardData }) {
   const router = useRouter();
   const { query, page, limit } = router.query;
-
   const href = getCorrectPath({ query, page, limit }, true, card.id);
 
   const image = card.attributes.image ? (
