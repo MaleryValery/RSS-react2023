@@ -28,6 +28,8 @@ module.exports = {
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'no-param-reassign': 'off',
+    'react/require-default-props': 'off',
+    'react/button-has-type': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'comma-dangle': ['error', 'only-multiline'],
     'react/prop-types': 'off',
