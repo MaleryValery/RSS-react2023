@@ -1,0 +1,60 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  max-width: 600px;
+}
+
+.label {
+  padding: 0 0 0px 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputText {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.inputText:focus-visible {
+  outline: none;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxBox {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.inputCheckbox {
+  margin: 0;
+}
+
+.inputWrapperRadio {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBoxRadio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  // border: 1px solid #333;
+  // border-radius: 5px;
+  padding: 5px;
+  gap: 20px;
+}
+
+.labelRadio {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
