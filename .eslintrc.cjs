@@ -26,6 +26,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   rules: {
+    'react/jsx-props-no-spreading': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'no-param-reassign': 'off',
     'react/require-default-props': 'off',
