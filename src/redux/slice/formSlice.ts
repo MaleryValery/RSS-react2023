@@ -9,7 +9,7 @@ const initialState: IStoreProps = {
   formData: [],
 };
 
-export const controlledSlice = createSlice({
+export const formSlice = createSlice({
   name: 'controlledForm',
   initialState,
   reducers: {
@@ -19,5 +19,5 @@ export const controlledSlice = createSlice({
   },
 });
 
-export default controlledSlice.reducer;
-export const { setData } = controlledSlice.actions;
+export default formSlice.reducer;
+export const { setData } = formSlice.actions;

@@ -15,7 +15,7 @@ import schema from '../Validation/FormValidation';
 import { IFormData, IFormFilds } from '../utils/interfaces';
 import convertToBase64 from '../utils/functions';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { setData } from '../redux/slice/controlledSlice';
+import { setData } from '../redux/slice/formSlice';
 
 function Controlled() {
   const navigate = useNavigate();
