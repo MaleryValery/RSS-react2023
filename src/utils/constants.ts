@@ -23,8 +23,10 @@ export const GENDER = [
 export const REQUIRED = 'This field is required';
 export const NAME_DEFAULT_ERR =
   'Name should contain first capital letter ex: John';
-export const MIN_LENGTH = 'Password must be at least 4 characters';
+export const MIN_LENGTH = 4;
+export const MIN_LENGTH_ERR = 'Password must be at least 4 characters';
 export const PASSWORD_ERR = 'Passwords must match';
+export const AGE_NUMBER = 'Age must be a `number` type,';
 export const AGE_POSITIVE = 'Age must be above zero';
 export const AGE_INTEGER = 'Age must be an integer';
 export const TC_ERR = 'Please accept the terms and conditions';
@@ -41,6 +43,23 @@ export const validFiles = {
 };
 
 export const ROUTE_HOME = '/';
+
+export const DEFAULT_ERRORS = {
+  name: '',
+  age: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  gender: '',
+  country: '',
+  image: '',
+  tandc: '',
+};
+
+export const INPUT_DATA = [
+  { id: 'male', name: 'gender', label: 'Male', defaultValue: 'Male' },
+  { id: 'female', name: 'gender', label: 'Female', defaultValue: 'Female' },
+];
 
 export const countryList = [
   { name: 'Afghanistan', code: 'AF' },

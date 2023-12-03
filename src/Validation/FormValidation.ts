@@ -7,21 +7,20 @@ import {
   IMG_SIZE_ERR,
   MAX_FILE_SIZE,
   MIN_LENGTH,
+  MIN_LENGTH_ERR,
+  NAME_DEFAULT_ERR,
   PASSWORD_ERR,
   REQUIRED,
   TC_ERR,
   countryList,
 } from '../utils/constants';
-
-const getCharacterValidationError = (str: string) => {
-  return `Password must have at least 1 ${str} character`;
-};
+import getCharacterValidationError from '../utils/getCharacterValidationError';
 
 const schema = yup.object().shape({
   name: yup
     .string()
     .required(REQUIRED)
-    .matches(/^[A-Z].*$/, getCharacterValidationError('uppercase'))
+    .matches(/^[A-Z].*$/, NAME_DEFAULT_ERR)
     .min(1),
   age: yup
     .number()
@@ -32,7 +31,7 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required(REQUIRED)
-    .min(4, MIN_LENGTH)
+    .min(MIN_LENGTH, MIN_LENGTH_ERR)
     .matches(/^(?=.*[0-9])/, getCharacterValidationError('digit'))
     .matches(/^(?=.*[A-Z])/, getCharacterValidationError('uppercase'))
     .matches(/^(?=.*[a-z])/, getCharacterValidationError('lowercase'))
@@ -66,5 +65,7 @@ const schema = yup.object().shape({
       return img[0].size <= MAX_FILE_SIZE;
     }),
 });
+
+export type SchemaValidation = yup.InferType<typeof schema>;
 
 export default schema;
