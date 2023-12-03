@@ -1,59 +1,85 @@
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { ValidationError } from 'yup';
 import CustomButton from '../components/CustomButton';
-import CustomForm from '../components/CustomForm';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  CONTROLLED_FORM,
-  NAME_DEFAULT_ERR,
+  DEFAULT_ERRORS,
+  INPUT_DATA,
   ROUTE_HOME,
   TC_CONTENT,
+  UNCONTROLLED_FORM,
   countryList,
 } from '../utils/constants';
-import styles from './Controlled.module.scss';
-import schema from '../Validation/FormValidation';
-import { IFormData, IFormFilds } from '../utils/interfaces';
+import styles from './Uncontrolled.module.scss';
+import { IFormData } from '../utils/interfaces';
+import schema, { SchemaValidation } from '../Validation/FormValidation';
 import convertToBase64 from '../utils/convertToBase64';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setData } from '../redux/slice/formSlice';
+import GenderInput from '../components/GenderInput';
 import passwordSchema from '../Validation/PasswordValidation';
 
-function Controlled() {
+function Uncontrolled() {
   const navigate = useNavigate();
-  const [passProgress, setPassProgress] = useState(1);
-  const cuttentFormsData = useAppSelector((state) => state.formData);
   const dispatch = useAppDispatch();
-  const {
-    register,
-    formState: { errors, isValid },
-    handleSubmit,
-    watch,
-    reset,
-  } = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onChange',
-  });
+  const cuttentFormsData = useAppSelector((state) => state.formData);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const genderRef = useRef('');
+  const countryRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const tandcRef = useRef<HTMLInputElement>(null);
 
-  const password = watch('password');
+  const [errors, setErrors] = useState(DEFAULT_ERRORS);
 
-  const onSubmit = async (formData: IFormFilds) => {
-    const imgBase64 = formData.image
-      ? await convertToBase64(formData.image[0] as File)
-      : '';
-    const newFormData: IFormData = { ...formData, image: imgBase64 };
-    const newArrData: IFormData[] = [newFormData, ...cuttentFormsData];
-    dispatch(setData(newArrData));
-    navigate(ROUTE_HOME);
-    reset();
+  const [passProgress, setPassProgress] = useState(1);
+
+  const getFormData = () => {
+    return {
+      name: nameRef.current?.value || '',
+      age: ageRef.current?.value || '',
+      email: emailRef.current?.value || '',
+      password: passwordRef.current?.value || '',
+      confirmPassword: confirmPasswordRef.current?.value || '',
+      gender: genderRef.current || '',
+      country: countryRef.current?.value || '',
+      image: imageRef.current?.files || '',
+      tandc: tandcRef.current?.checked || '',
+    } as unknown as SchemaValidation;
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const formData = getFormData();
+      await schema.validate(formData, { abortEarly: false });
+      const imgBase64 = formData.image
+        ? await convertToBase64(formData.image[0] as File)
+        : '';
+      const newFormData: IFormData = { ...formData, image: imgBase64 };
+      const newArrData: IFormData[] = [newFormData, ...cuttentFormsData];
+      dispatch(setData(newArrData));
+      navigate(ROUTE_HOME);
+    } catch (error) {
+      let errorsValidation = DEFAULT_ERRORS;
+      if (error instanceof ValidationError) {
+        error.inner.forEach((e) => {
+          const path = e.path as keyof SchemaValidation;
+          errorsValidation = { ...errorsValidation, [path]: e.message };
+        });
+      }
+      setErrors(errorsValidation);
+    }
   };
 
   useEffect(() => {
     try {
       passwordSchema.validateSync(
         {
-          password,
+          password: passwordRef.current?.value,
         },
         { abortEarly: false }
       );
@@ -64,12 +90,16 @@ function Controlled() {
         setPassProgress(strong - rest);
       }
     }
-  }, [password]);
+  }, [passwordRef.current?.value]);
 
   return (
-    <div className={styles.controlledWrapper}>
-      <h2>{CONTROLLED_FORM}</h2>
-      <CustomForm className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <div className={styles.uncontrolledWrapper}>
+      <h2>{UNCONTROLLED_FORM}</h2>
+      <form
+        className={styles.form}
+        noValidate
+        onSubmit={(event: FormEvent<HTMLFormElement>) => onSubmit(event)}
+      >
         <div className={styles.inputBox}>
           <label className={styles.label} htmlFor="nameId">
             name
@@ -77,14 +107,10 @@ function Controlled() {
               className={styles.inputText}
               id="nameId"
               type="text"
-              {...register('name')}
+              ref={nameRef}
             />
             <div className="error-wrapper">
-              {errors?.name && (
-                <p className="error-text">
-                  {errors?.name?.message?.toString() || NAME_DEFAULT_ERR}
-                </p>
-              )}
+              {errors?.name && <p className="error-text">{errors.name}</p>}
             </div>
           </label>
         </div>
@@ -96,12 +122,10 @@ function Controlled() {
               className={styles.inputText}
               id="ageId"
               type="number"
-              {...register('age')}
+              ref={ageRef}
             />
             <div className="error-wrapper">
-              {errors?.age && (
-                <p className="error-text">{errors?.age?.message}</p>
-              )}
+              <p className="error-text">{errors.age}</p>
             </div>
           </label>
         </div>
@@ -112,15 +136,11 @@ function Controlled() {
             <input
               className={styles.inputText}
               id="emailID"
-              type="email"
-              {...register('email')}
+              type="text"
+              ref={emailRef}
             />
             <div className="error-wrapper">
-              {errors?.email && (
-                <p className="error-text">
-                  {errors?.email?.message?.toString()}
-                </p>
-              )}
+              <p className="error-text">{errors?.email}</p>
             </div>
           </label>
         </div>
@@ -132,7 +152,7 @@ function Controlled() {
               className={styles.inputText}
               id="passwordId"
               type="password"
-              {...register('password')}
+              ref={passwordRef}
             />
             <div className="strength-container">
               <progress
@@ -142,11 +162,7 @@ function Controlled() {
               />
             </div>
             <div className="error-wrapper">
-              {errors?.password && (
-                <p className="error-text">
-                  {errors?.password?.message?.toString()}
-                </p>
-              )}
+              <p className="error-text">{errors.password}</p>
             </div>
           </label>
         </div>
@@ -158,52 +174,19 @@ function Controlled() {
               className={styles.inputText}
               id="confirmpPasswordId"
               type="password"
-              {...register('confirmPassword')}
+              ref={confirmPasswordRef}
             />
             <div className="error-wrapper">
-              {errors?.confirmPassword && (
-                <p className="error-text">
-                  {errors?.confirmPassword?.message?.toString()}
-                </p>
-              )}
+              <p className="error-text">{errors.confirmPassword}</p>
             </div>
           </label>
         </div>
 
-        <div className={styles.inputBox}>
-          <div className={styles.inputWrapperRadio}>
-            your gender:
-            <div className={styles.inputBoxRadio}>
-              <label className={styles.labelRadio} htmlFor="male">
-                male
-                <input
-                  className={styles.inputRadio}
-                  {...register('gender')}
-                  id="male"
-                  value="male"
-                  type="radio"
-                />
-              </label>
-              <label className={styles.labelRadio} htmlFor="female">
-                female
-                <input
-                  className={styles.inputRadio}
-                  {...register('gender')}
-                  id="female"
-                  value="female"
-                  type="radio"
-                />
-              </label>
-            </div>
-            <div className="error-wrapper">
-              {errors?.gender && (
-                <p className="error-text">
-                  {errors?.gender?.message?.toString()}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
+        <GenderInput
+          inputData={INPUT_DATA}
+          gender={genderRef}
+          error={errors.gender}
+        />
 
         <div className={styles.inputBox}>
           <label className={styles.label} htmlFor="countriesID">
@@ -213,7 +196,7 @@ function Controlled() {
               type="text"
               id="countriesID"
               list="countryList"
-              {...register('country')}
+              ref={countryRef}
             />
             <datalist id="countriesID">
               {countryList.map((country) => {
@@ -227,11 +210,7 @@ function Controlled() {
               })}
             </datalist>
             <div className="error-wrapper">
-              {errors?.country && (
-                <p className="error-text">
-                  {errors?.country?.message?.toString()}
-                </p>
-              )}
+              <p className="error-text">{errors.country}</p>
             </div>
           </label>
         </div>
@@ -242,12 +221,10 @@ function Controlled() {
               className={styles.inputImage}
               id="imageId"
               type="file"
-              {...register('image')}
+              ref={imageRef}
             />
             <div className="error-wrapper">
-              {errors?.image && (
-                <p className="error-text">{errors?.image?.message}</p>
-              )}
+              <p className="error-text">{errors.image}</p>
             </div>
           </label>
         </div>
@@ -259,25 +236,18 @@ function Controlled() {
                 className={styles.inputRadio}
                 id="tandc"
                 type="checkbox"
-                {...register('tandc')}
+                ref={tandcRef}
               />
             </label>
           </div>
           <div className="error-wrapper">
-            {errors?.tandc && (
-              <p className="error-text">{errors?.tandc?.message?.toString()}</p>
-            )}
+            <p className="error-text">{errors.tandc}</p>
           </div>
         </div>
-        <CustomButton
-          disabled={!isValid}
-          title="Submit"
-          onClick={() => {}}
-          buttonType="submit"
-        />
-      </CustomForm>
+        <CustomButton title="Submit" onClick={() => {}} buttonType="submit" />
+      </form>
     </div>
   );
 }
 
-export default Controlled;
+export default Uncontrolled;
