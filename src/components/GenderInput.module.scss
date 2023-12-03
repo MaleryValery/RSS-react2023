@@ -1,0 +1,19 @@
+.inputWrapperRadio {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBoxRadio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  gap: 20px;
+}
+
+.labelRadio {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}

@@ -1,0 +1,78 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  max-width: 600px;
+  min-width: 450px;
+}
+
+.label {
+  padding: 0 0 0px 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputText {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.inputText:focus-visible {
+  outline: none;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxBox {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.inputCheckbox {
+  margin: 0;
+}
+
+.inputWrapperRadio {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBoxRadio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  gap: 20px;
+}
+
+.labelRadio {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
+.submitBtn {
+  background-color: pink;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 5px;
+  font-size: 1.2rem;
+}
+
+.submitBtn:hover,
+.submitBtn:active {
+  cursor: pointer;
+  background-color: #ff7eb9;
+}
+.submitBtn:disabled,
+.submitBtn:disabled:hover {
+  background-color: rgb(179, 152, 158);
+  cursor: not-allowed;
+}
