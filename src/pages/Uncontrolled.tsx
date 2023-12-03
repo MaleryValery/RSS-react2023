@@ -35,7 +35,7 @@ function Uncontrolled() {
 
   const [errors, setErrors] = useState(DEFAULT_ERRORS);
 
-  const [passProgress, setPassProgress] = useState(1);
+  const [passProgress, setPassProgress] = useState(0);
 
   const getFormData = () => {
     return {
@@ -85,7 +85,7 @@ function Uncontrolled() {
       );
     } catch (error) {
       if (error instanceof ValidationError) {
-        const strong: number = 6;
+        const strong: number = 5;
         const rest = (error as ValidationError).inner.length;
         setPassProgress(strong - rest);
       }
@@ -157,7 +157,7 @@ function Uncontrolled() {
             />
             <div className="strength-container">
               <progress
-                max="5"
+                max="4"
                 value={passProgress}
                 className={styles.progress}
               />
