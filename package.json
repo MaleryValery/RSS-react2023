@@ -58,7 +58,7 @@
     "vite": "^5.0.0"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,html,css}": "prettier --write",
-    "src/**/*.{ts,tsx}": "eslint --color"
+    "src/*.{ts,tsx,html,css}": "prettier --write",
+    "src/*.{ts,tsx}": "eslint --color"
   }
 }

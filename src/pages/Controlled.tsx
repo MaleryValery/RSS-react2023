@@ -270,6 +270,7 @@ function Controlled() {
           </div>
         </div>
         <CustomButton
+          className={styles.submitBtn}
           disabled={!isValid}
           title="Submit"
           onClick={() => {}}

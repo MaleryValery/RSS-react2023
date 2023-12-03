@@ -48,8 +48,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  // border: 1px solid #333;
-  // border-radius: 5px;
   padding: 5px;
   gap: 20px;
 }
@@ -58,4 +56,22 @@
   display: flex;
   flex-direction: row-reverse;
   gap: 5px;
+}
+
+.submitBtn {
+  background-color: pink;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 5px;
+  font-size: 1.2rem;
+}
+
+.submitBtn:hover,
+.submitBtn:active {
+  cursor: pointer;
+  background-color: #ff7eb9;
+}
+.submitBtn::disabled {
+  background-color: rgb(137, 113, 118);
+  cursor: not-allowed;
 }

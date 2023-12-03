@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { ValidationError } from 'yup';
 import CustomButton from '../components/CustomButton';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -75,11 +75,11 @@ function Uncontrolled() {
     }
   };
 
-  useEffect(() => {
+  const checkPassword = (password: string) => {
     try {
       passwordSchema.validateSync(
         {
-          password: passwordRef.current?.value,
+          password,
         },
         { abortEarly: false }
       );
@@ -90,7 +90,7 @@ function Uncontrolled() {
         setPassProgress(strong - rest);
       }
     }
-  }, [passwordRef.current?.value]);
+  };
 
   return (
     <div className={styles.uncontrolledWrapper}>
@@ -153,6 +153,7 @@ function Uncontrolled() {
               id="passwordId"
               type="password"
               ref={passwordRef}
+              onChange={(event) => checkPassword(event.target.value)}
             />
             <div className="strength-container">
               <progress
@@ -238,7 +239,12 @@ function Uncontrolled() {
             <p className="error-text">{errors.tandc}</p>
           </div>
         </div>
-        <CustomButton title="Submit" onClick={() => {}} buttonType="submit" />
+        <CustomButton
+          className={styles.submitBtn}
+          title="Submit"
+          onClick={() => {}}
+          buttonType="submit"
+        />
       </form>
     </div>
   );

@@ -7,20 +7,28 @@ function Home() {
   const formData = useAppSelector((state) => state.form.formData);
 
   return (
-    <div>
+    <div className={styles.main}>
       <h1>{MAIN_HEADING}</h1>
-      <div className={styles.homeComtent}>
-        {formData.map((data, index) => (
-          <div
-            key={Math.random()}
-            className={
-              index === 0 ? 'card-wrapper active-card' : 'card-wrapper'
-            }
-          >
-            <FormCard card={data} />
-          </div>
-        ))}
-      </div>
+      {formData.length !== 0 && (
+        <div className={styles.homeComtent}>
+          {formData.map((data, index) => (
+            <div
+              key={Math.random()}
+              className={
+                index === 0 ? 'card-wrapper active-card' : 'card-wrapper'
+              }
+            >
+              <FormCard card={data} />
+            </div>
+          ))}
+        </div>
+      )}
+      {formData.length === 0 && (
+        <>
+          <h2>Here will be forms</h2>
+          <div className={styles.reactIcon} />
+        </>
+      )}
     </div>
   );
 }
