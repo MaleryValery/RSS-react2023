@@ -215,15 +215,9 @@ function Controlled() {
               list="countryList"
               {...register('country')}
             />
-            <datalist id="countriesID">
+            <datalist id="countryList">
               {countryList.map((country) => {
-                return (
-                  <option
-                    id="country"
-                    key={country.code}
-                    value={country.name}
-                  />
-                );
+                return <option key={country.code} value={country.name} />;
               })}
             </datalist>
             <div className="error-wrapper">
