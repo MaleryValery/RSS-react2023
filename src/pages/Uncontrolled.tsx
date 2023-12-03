@@ -22,7 +22,7 @@ import passwordSchema from '../Validation/PasswordValidation';
 function Uncontrolled() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const cuttentFormsData = useAppSelector((state) => state.formData);
+  const currentFormsData = useAppSelector((state) => state.form.formData);
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -60,7 +60,7 @@ function Uncontrolled() {
         ? await convertToBase64(formData.image[0] as File)
         : '';
       const newFormData: IFormData = { ...formData, image: imgBase64 };
-      const newArrData: IFormData[] = [newFormData, ...cuttentFormsData];
+      const newArrData: IFormData[] = [newFormData, ...currentFormsData];
       dispatch(setData(newArrData));
       navigate(ROUTE_HOME);
     } catch (error) {
@@ -198,15 +198,9 @@ function Uncontrolled() {
               list="countryList"
               ref={countryRef}
             />
-            <datalist id="countriesID">
+            <datalist id="countryList">
               {countryList.map((country) => {
-                return (
-                  <option
-                    id="country"
-                    key={country.code}
-                    value={country.name}
-                  />
-                );
+                return <option key={country.code} value={country.name} />;
               })}
             </datalist>
             <div className="error-wrapper">

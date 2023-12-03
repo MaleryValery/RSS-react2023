@@ -23,7 +23,7 @@ import passwordSchema from '../Validation/PasswordValidation';
 function Controlled() {
   const navigate = useNavigate();
   const [passProgress, setPassProgress] = useState(1);
-  const cuttentFormsData = useAppSelector((state) => state.formData);
+  const currentFormsData = useAppSelector((state) => state.form.formData);
   const dispatch = useAppDispatch();
   const {
     register,
@@ -43,7 +43,7 @@ function Controlled() {
       ? await convertToBase64(formData.image[0] as File)
       : '';
     const newFormData: IFormData = { ...formData, image: imgBase64 };
-    const newArrData: IFormData[] = [newFormData, ...cuttentFormsData];
+    const newArrData: IFormData[] = [newFormData, ...currentFormsData];
     dispatch(setData(newArrData));
     navigate(ROUTE_HOME);
     reset();

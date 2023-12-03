@@ -8,7 +8,7 @@ interface IFormCard {
 function FormCard({ card }: IFormCard) {
   const { name, age, email, password, country, gender, image } = card;
   return (
-    <div className={styles.cardWrapper}>
+    <>
       <div className={styles.cardContent}>
         <h2>{name}</h2>
         <p>age: {age}</p>
@@ -20,7 +20,7 @@ function FormCard({ card }: IFormCard) {
       <div className={styles.CardImage}>
         <img src={image} alt={name} />
       </div>
-    </div>
+    </>
   );
 }
 
