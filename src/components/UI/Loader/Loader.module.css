@@ -8,12 +8,12 @@
 .loader {
   width: 90px;
   height: 90px;
-  border: 6px solid #99ff00;
+  border: 6px solid rgb(24, 180, 0);
   border-radius: 50%;
   display: inline-block;
   position: relative;
   box-sizing: border-box;
-  animation: rotation 1s linear infinite;
+  animation: rotation 1.5s linear infinite;
 }
 
 .loader::after {
@@ -27,7 +27,7 @@
   height: 70px;
   border-radius: 50%;
   border: 6px solid;
-  border-color: #ff00f2 transparent;
+  border-color: #ed1d24 transparent;
 }
 
 @keyframes rotation {

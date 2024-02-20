@@ -14,7 +14,7 @@ function SearchForm() {
   const [inputValue, setInputValue] = useState(search);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
+    const { value } = event.target;
     setInputValue(value);
   };
 

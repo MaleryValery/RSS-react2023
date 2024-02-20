@@ -31,7 +31,7 @@ const queryParams = ({ value, limit, offset }: SearchParams) => {
     ts: TS,
     hash: HASH,
     apikey: PUBLIC_API_KEY,
-    titleStartsWith: value,
+    titleStartsWith: value.trim(),
     limit,
     offset,
   };

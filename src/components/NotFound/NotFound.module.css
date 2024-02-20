@@ -1,0 +1,16 @@
+.notFound {
+  font-family: 'Roboto-Medium';
+  font-size: 2.8rem;
+}
+
+.notFound::before {
+  content: '';
+  background-image: url('../../assets/images/not-found.png');
+  background-size: cover;
+  position: relative;
+  display: inline-block;
+  width: 3.2rem;
+  height: 4.5rem;
+  top: 5px;
+  margin-right: 1rem;
+}

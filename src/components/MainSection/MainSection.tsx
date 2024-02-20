@@ -7,6 +7,7 @@ import Loader from '../UI/Loader/Loader';
 
 import { useGetComicsListQuery } from '../../service/apiService';
 import ErrorElement from '../UI/ErrorElement/ErrorElement';
+import NotFound from '../NotFound/NotFound';
 
 function MainSection() {
   const { value } = useAppSelector((state) => state.search);
@@ -17,8 +18,6 @@ function MainSection() {
     offset,
   });
 
-  // setTotalPages(data?.data.total || 0);
-
   return (
     <div className={classes.mainSectionWrapper}>
       {(isLoading || isFetching) && <Loader />}
@@ -27,7 +26,8 @@ function MainSection() {
         {!isLoading && !isFetching && isError ? (
           <ErrorElement />
         ) : (
-          !!data && (
+          data?.data.results &&
+          data?.data.results.length > 0 && (
             <>
               <h2 className={classes.subTitle}>
                 {data.data.total} Characters | {data.data.limit} Limit
@@ -38,6 +38,7 @@ function MainSection() {
             </>
           )
         )}
+        {data?.data.results && data?.data.results.length === 0 && <NotFound />}
       </div>
     </div>
   );
