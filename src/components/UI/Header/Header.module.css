@@ -1,0 +1,44 @@
+.header {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+  gap: 20px;
+}
+
+.headerTitle {
+  color: #ed1d24;
+  font-size: 28px;
+  font-family: 'Roboto-Medium';
+}
+
+.headerTitle::before {
+  content: '';
+  background-image: url('../../../assets/icons/logo.svg');
+  background-size: cover;
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  top: 5px;
+}
+
+.headerErrorButton {
+  background-image: url('../../../assets/icons/hulk-icon-default.svg');
+  display: inline-block;
+  background-size: contain;
+  cursor: pointer;
+  padding: 5px 15px;
+  transition: all 0.3s;
+  width: 40px;
+  height: 40px;
+}
+
+.headerErrorButton:hover,
+.headerErrorButton:focus {
+  background-image: url('../../../assets/icons/hulk-icon-hover.svg');
+}
+
+.authNav {
+  margin-left: auto;
+}

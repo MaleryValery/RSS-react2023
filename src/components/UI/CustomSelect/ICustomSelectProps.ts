@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 
 interface ICustomSelectProps {
   items: string[] | number[];
-  value?: string;
+  value?: number;
   defaultValue?: string | number;
   classNameSelect?: string;
   classNameOpt?: string;

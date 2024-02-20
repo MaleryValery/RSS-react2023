@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import classes from './Header.module.css';
-import CustomButton from '../UI/CustomButton/CustomButton';
+import CustomButton from '../CustomButton/CustomButton';
 import IHeader from './IHeader';
+import CustomNav from '../Nav/CustomNav';
+import { AUTH_ITEMS, NAV_ITEMS } from '../../../utils/const/const';
 
 function Header({ children }: IHeader) {
   const [isError, setIsError] = useState(false);
@@ -18,13 +20,13 @@ function Header({ children }: IHeader) {
 
   return (
     <header className={classes.header}>
-      <div className={classes.logo} />
-      <h1 className={classes.headerTitle}>React App</h1>
+      <h1 className={classes.headerTitle}>wesome Marvel</h1>
+      <CustomNav navItems={NAV_ITEMS} />
       <CustomButton
-        className={classes.headerButton}
+        className={classes.headerErrorButton}
         onClick={handleError}
-        title="error"
       />
+      <CustomNav className={classes.authNav} navItems={AUTH_ITEMS} />
       {children}
     </header>
   );

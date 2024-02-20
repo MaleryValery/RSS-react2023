@@ -1,0 +1,11 @@
+.navList {
+  font-family: 'Roboto-Medium';
+  list-style: none;
+  color: #ffffff;
+  display: flex;
+  gap: 10px;
+}
+
+.nav {
+  padding-top: 5px;
+}
