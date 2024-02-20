@@ -1,23 +1,23 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  limitValue: '5',
-  pageValue: '1',
-  totalPages: '',
+  limit: 5,
+  offset: 1,
+  total: 0,
 };
 
 export const limitSlice = createSlice({
   name: 'limit',
   initialState,
   reducers: {
-    setLimit(state, action: PayloadAction<string>) {
-      state.limitValue = action.payload;
+    setLimit(state, action: PayloadAction<number>) {
+      state.limit = action.payload;
     },
-    setCurrentPage(state, action: PayloadAction<string>) {
-      state.pageValue = action.payload;
+    setCurrentPage(state, action: PayloadAction<number>) {
+      state.offset = action.payload;
     },
-    setTotalPages(state, action: PayloadAction<string>) {
-      state.pageValue = action.payload;
+    setTotalPages(state, action: PayloadAction<number>) {
+      state.total = action.payload;
     },
   },
 });

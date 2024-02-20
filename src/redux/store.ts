@@ -1,22 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  cardsListReducer,
-  limitReducer,
-  loaderReducer,
-  searchReducer,
-} from './slices/index';
-import { charactersAPI } from '../service/apiService';
+import { cardsListReducer, limitReducer, searchReducer } from './slices/index';
+import { marvelAPI } from '../service/apiService';
 
 export const store = configureStore({
   reducer: {
     limit: limitReducer,
     search: searchReducer,
     cardsList: cardsListReducer,
-    loader: loaderReducer,
-    charactersAPI: charactersAPI.reducer,
+    marvelAPI: marvelAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(charactersAPI.middleware),
+    getDefaultMiddleware().concat(marvelAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
