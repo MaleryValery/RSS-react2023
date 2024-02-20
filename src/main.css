@@ -4,6 +4,33 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: url('./assets/fonts/Roboto/RobotoCondensed-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('./assets/fonts/Roboto/RobotoCondensed-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('./assets/fonts/Roboto/RobotoCondensed-Regular.ttf');
+  font-weight: 400;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+#root {
+  margin: 0 auto;
+  font-family: 'Roboto-Regular';
+}
+
 button {
   border: none;
   background-color: transparent;
@@ -12,32 +39,4 @@ button {
 a {
   text-decoration: none;
   color: inherit;
-}
-
-#root {
-  margin: 0 auto;
-}
-
-@font-face {
-  font-family: 'Cabin-Bold';
-  src: url('./assets/fonts/CabinSketch/CabinSketch-Bold.ttf');
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: 'Cabin';
-  src: url('./assets/fonts/CabinSketch/CabinSketch-Regular.ttf');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Neucha';
-  src: url('./assets/fonts/Neucha/Neucha-Regular.ttf');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Voltaire';
-  src: url('./assets/fonts/Voltaire/Voltaire-Regular.ttf');
-  font-weight: 400;
 }
