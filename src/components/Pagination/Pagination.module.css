@@ -2,29 +2,52 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  gap: 20px;
-  padding: 30px;
-  font-size: 24px;
+  gap: 2rem;
+  padding: 3rem;
+  font-size: 2.4rem;
 }
 
-.arrowLeft,
-.arrowRigth {
+.pageNumbersBox {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pageBtn {
+  font-size: 1.8rem;
+  font-family: 'Roboto-Medium';
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.pageBtnActive {
+  font-size: 2.2rem;
+}
+
+.arrow {
   width: 20px;
   height: 20px;
-  background-color: rgba(153, 205, 50, 0.4);
   border-radius: 50%;
+  background-size: cover;
 }
 
 .arrowLeft {
-  background-image: url('../../assets/icons/left.png');
-  background-size: cover;
+  background-image: url('../../assets/icons/prev-arrow.svg');
 }
 .arrowRigth {
-  background-image: url('../../assets/icons/right.png');
-  background-size: cover;
+  background-image: url('../../assets/icons/next-arrow.svg');
+}
+.arrowFirst {
+  background-image: url('../../assets/icons/first-arrow.svg');
+}
+.arrowLast {
+  background-image: url('../../assets/icons/last-arrow.svg');
 }
 
 .arrowLeft:disabled,
-.arrowRigth:disabled {
-  background-color: rgba(0, 0, 0, 0.3);
+.arrowRigth:disabled,
+.arrowFirst:disabled,
+.arrowLast:disabled {
+  background-image: none;
 }

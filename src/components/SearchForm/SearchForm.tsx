@@ -1,12 +1,4 @@
-import {
-  ChangeEvent,
-  MouseEvent,
-  KeyboardEvent,
-  useState,
-  SyntheticEvent,
-  useEffect,
-} from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import CustomInput from '../UI/CustomInput/CustomInput';
 import CustomButton from '../UI/CustomButton/CustomButton';
 import classes from './SearchForm.module.css';
@@ -17,37 +9,25 @@ import { SELECT_OPTIONS } from '../../utils/const/const';
 
 function SearchForm() {
   const search = useAppSelector((state) => state.search.value);
-  const limit = useAppSelector((state) => state.limit.limitValue);
+  const limit = useAppSelector((state) => state.limit.limit);
   const { setSearch, setLimit } = useActions();
   const [inputValue, setInputValue] = useState(search);
-  const [, setSearchParams] = useSearchParams();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setInputValue(value);
   };
 
-  const onSubmit = (e: SyntheticEvent): void => {
-    e.preventDefault();
+  const onSubmit = (): void => {
     setSearch(inputValue);
-    setSearchParams((searchParams) => {
-      searchParams.set('page', '1');
-      return searchParams;
-    });
   };
 
   const handleInputSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onSubmit(e);
+      e.preventDefault();
+      onSubmit();
     }
   };
-
-  useEffect(() => {
-    setSearchParams((searchParams) => {
-      searchParams.set('page', '1');
-      return searchParams;
-    });
-  }, [setSearchParams]);
 
   return (
     <form className={classes.serchFormWrapper} onSubmit={onSubmit}>
@@ -61,21 +41,16 @@ function SearchForm() {
       <CustomSelect
         items={SELECT_OPTIONS}
         value={limit}
+        classNameSelect={classes.customSelect}
         onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-          setLimit(event.target.value);
-          setSearchParams((searchParams) => {
-            searchParams.set('page', '1');
-            return searchParams;
-          });
+          setLimit(Number(event.target.value));
         }}
       />
       <CustomButton
         title="search"
         className={classes.customButton}
         disabled={false}
-        onClick={(event?: MouseEvent<HTMLElement>): void => {
-          if (event) onSubmit(event);
-        }}
+        onClick={onSubmit}
       />
     </form>
   );

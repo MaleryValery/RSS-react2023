@@ -1,5 +1,7 @@
+import { IData } from '../../service/IResponseData';
+
 interface IPaginatinProps {
-  isNextPage: boolean;
+  data: IData;
 }
 
 export default IPaginatinProps;

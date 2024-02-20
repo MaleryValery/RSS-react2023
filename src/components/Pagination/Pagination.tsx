@@ -1,44 +1,76 @@
-import { useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import CustomButton from '../UI/CustomButton/CustomButton';
 import classes from './Pagination.module.css';
 import useActions from '../../utils/hooks/dispatchActions';
-import { useAppSelector } from '../../redux/hook';
 import IPaginatinProps from './IPaginationProps';
 
-function Pagination({ isNextPage }: IPaginatinProps) {
+function Pagination({ data }: IPaginatinProps) {
   const { setCurrentPage } = useActions();
-  const { pageValue } = useAppSelector((state) => state.limit);
-  const [, setSearchParams] = useSearchParams();
+  const { limit, offset, total } = data;
+
+  const curPage = Math.floor(offset / limit) + 1;
+  const totalPage = Math.ceil(total / limit);
+  const pageNumbers = Array.from({ length: totalPage }).map((_, i) => i + 1);
 
   const onPrevButton = () => {
-    const prevPage = +pageValue - 1;
-    setCurrentPage(String(prevPage));
+    const prevPage = offset - limit;
+    setCurrentPage(prevPage);
   };
 
   const onNextButton = () => {
-    const nextPage = +pageValue + 1;
-    setCurrentPage(String(nextPage));
+    const nextPage = offset + limit;
+    setCurrentPage(nextPage);
   };
 
-  useEffect(() => {
-    setSearchParams(`?page=${pageValue}`);
-  }, [setSearchParams, pageValue]);
+  const onChangePage = (pageNum: number) => {
+    const newPage = pageNum * limit;
+    setCurrentPage(newPage);
+  };
+
+  const onLastPage = () => {
+    const lastPage = Math.trunc(total / limit) * limit;
+    setCurrentPage(lastPage);
+  };
+
+  const generateButtons = () => {
+    const currentPages = pageNumbers.slice(
+      curPage < 3 ? 0 : curPage - 3,
+      curPage < 3 ? 5 : curPage + 2
+    );
+
+    return currentPages.map((pageNum) => (
+      <CustomButton
+        key={pageNum}
+        onClick={() => onChangePage(pageNum - 1)}
+        title={pageNum.toString()}
+        className={`${classes.pageBtn} ${
+          curPage === pageNum ? classes.pageBtnActive : ''
+        }`}
+      />
+    ));
+  };
 
   return (
     <div className={classes.paginationControllers}>
       <CustomButton
-        title=""
-        className={classes.arrowLeft}
-        onClick={onPrevButton}
-        disabled={pageValue === '1'}
+        className={`${classes.arrowFirst} ${classes.arrow}`}
+        onClick={() => onChangePage(0)}
+        disabled={curPage === 1}
       />
-      <p>{pageValue}</p>
       <CustomButton
-        title=""
-        className={classes.arrowRigth}
+        className={`${classes.arrowLeft} ${classes.arrow}`}
+        onClick={onPrevButton}
+        disabled={curPage === 1}
+      />
+      <div className={classes.pageNumbersBox}>{generateButtons()}</div>
+      <CustomButton
+        className={`${classes.arrowRigth} ${classes.arrow}`}
         onClick={onNextButton}
-        disabled={!isNextPage}
+        disabled={curPage === Math.ceil(total / limit)}
+      />
+      <CustomButton
+        className={`${classes.arrowLast} ${classes.arrow}`}
+        onClick={onLastPage}
+        disabled={total - offset - limit < 0}
       />
     </div>
   );
