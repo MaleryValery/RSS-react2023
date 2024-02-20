@@ -1,61 +1,55 @@
 .cardDetailsWrapper {
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(255, 0, 255, 0.132);
+  font-family: 'Roboto-Regular';
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 3rem;
   overflow: hidden;
-  margin-top: 50px;
+  margin: 2rem;
+  max-width: 50%;
+  height: 100%;
 }
 
 .cardContentWrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
 }
 
 .cardDetailsTitle {
-  font-size: 32px;
-  font-family: 'Neucha';
+  font-family: 'Roboto-Medium';
+  font-size: 3rem;
 }
 
 .cardDetailsImgBox {
-  background-color: rgb(55, 255, 0);
-  border-radius: 10px;
-  width: 260px;
-  padding: 10px;
+  background-color: rgb(24, 180, 0);
+  border-radius: 1rem;
+  width: 30rem;
+  padding: 1rem;
 }
 
 .cardDetailsImg {
-  border-radius: 10px;
+  width: 100%;
 }
 
 .cardDetailsText {
   display: flex;
   flex-direction: column;
   gap: 5px;
-
-  font-size: 20px;
-  font-family: 'Neucha';
+  font-size: 2rem;
 }
 
 .cardDetailsCloseBtn {
   text-align: center;
   border-radius: 10px;
   padding: 8px 16px;
-  border: 2px solid fuchsia;
+  border: 2px solid #ed1d24;
   transition: all 0.3s;
 }
 .cardDetailsCloseBtn:hover,
 .cardDetailsCloseBtn:active {
-  background-color: fuchsia;
-  border: 2px solid fuchsia;
-}
-
-.overlay {
-  background-color: white;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  background-color: #ed1d24;
+  border: 2px solid #ed1d24;
+  color: #000000;
 }

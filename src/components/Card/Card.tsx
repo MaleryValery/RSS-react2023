@@ -1,15 +1,18 @@
 import { Link, useLocation } from 'react-router-dom';
 import { MouseEvent, useCallback } from 'react';
 import ICardProps from './ICardProps';
-import img from '../../assets/images/no-img.png';
+import img from '../../assets/images/cover_image.jpg';
 import classes from './Card.module.css';
+import getShortName from '../../utils/functions/getShortName';
 
 function Card(props: ICardProps) {
   const location = useLocation();
 
   const { card } = props;
 
-  const image = card.attributes.image ? card.attributes.image : img;
+  const image = card.thumbnail.path
+    ? `${card.thumbnail.path}.${card.thumbnail.extension}`
+    : img;
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
@@ -22,7 +25,7 @@ function Card(props: ICardProps) {
 
   return (
     <Link
-      to={`details/${card.id}`}
+      to={`/${card.id}`}
       data-testid="card-list-character"
       onClick={handleClick}
     >
@@ -33,7 +36,7 @@ function Card(props: ICardProps) {
             data-testid="card-character-name"
             className={classes.cardTitleSmall}
           >
-            {card.attributes.name}
+            {getShortName(card.title)}
           </span>
         </div>
       </div>
