@@ -1,7 +1,8 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Header from '../components/Header/Header';
-import MainSection from '../components/MainSection/MainSection';
+import Header from '../../components/UI/Header/Header';
+import MainSection from '../../components/MainSection/MainSection';
 import classes from './Home.module.css';
+import Box from '../../components/UI/Box/Box';
 
 function Home() {
   const location = useLocation();
@@ -14,7 +15,7 @@ function Home() {
   return (
     <>
       <Header />
-      <div className={classes.homeMainWrapper}>
+      <Box className={classes.homeMainWrapper}>
         <div
           tabIndex={0}
           aria-label="overlay"
@@ -25,10 +26,8 @@ function Home() {
         >
           <MainSection />
         </div>
-        <div>
-          <Outlet />
-        </div>
-      </div>
+        <Outlet />
+      </Box>
     </>
   );
 }
