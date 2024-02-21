@@ -6,10 +6,7 @@ function ErrorElement() {
   const navigator = useNavigate();
   return (
     <div className={classes.errorBoundaryWrapper}>
-      <h1 className={classes.errorHeading}>
-        Oppps... Rick messed up, try later{' '}
-      </h1>
-      <h3 className={classes.errorSubHeading}>WUBBA LUBBA DUB DUB</h3>
+      <h1 className={classes.errorHeading}>Wow, something went wrong...</h1>
       <div className={classes.errorBoundaryImg} />
       <CustomButton
         title="restart"

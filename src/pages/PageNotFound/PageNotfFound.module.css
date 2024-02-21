@@ -1,0 +1,31 @@
+.title {
+  font-size: 3.2rem;
+}
+
+.img {
+  display: block;
+  background-size: cover;
+  width: 4.2rem;
+  height: 6rem;
+  top: 5px;
+}
+
+.notFoundBox {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.buttonBack {
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #000000;
+  border-radius: 1rem;
+  transition: all 0.3s;
+}
+
+.buttonBack:hover {
+  background-color: #000000;
+  color: #ffffff;
+}

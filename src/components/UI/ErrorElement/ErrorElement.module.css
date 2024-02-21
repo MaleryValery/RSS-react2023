@@ -5,41 +5,45 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  gap: 10px;
-  padding: 50px;
+  gap: 1rem;
+  padding: 5rem;
 }
 
 .errorBoundaryImg {
-  background-image: url('../../../assets/images/error.png');
-  width: 200px;
-  height: 162px;
+  background-image: url('../../../assets/icons/notfound.svg');
+  width: 20rem;
+  height: 20rem;
   display: block;
   background-size: cover;
 }
 
 .errorHeading {
-  font-size: 24px;
+  font-size: 2.4rem;
   text-transform: uppercase;
   font-weight: 700;
   display: inline-block;
-  color: rgb(217, 70, 239);
+  color: #ed1d24;
   letter-spacing: 2px;
   transform: skewY(1deg) skewX(10deg);
 }
 
 .errorSubHeading {
-  font-size: 18px;
+  font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: 700;
   display: inline-block;
-  color: #28b485;
+  color: #18b400;
   letter-spacing: 2px;
   transform: skewY(1deg) skewX(10deg);
 }
 
 .restartButton {
-  background-color: rgb(217, 70, 239);
+  background-color: #ed1d24;
   color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+.restartButton:hover {
+  background-color: #a9161b;
 }
